@@ -8,15 +8,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root{
-  --brand:#D85A30;--brand-dark:#993C1D;--brand-light:#FAECE7;
-  --blue:#185FA5;--blue-light:#E6F1FB;
-  --green:#3B6D11;--green-light:#EAF3DE;
-  --amber:#BA7517;--amber-light:#FAEEDA;
+  /* ✏️ COR PRINCIPAL (laranja) */ --brand:#D85A30;--brand-dark:#993C1D;--brand-light:#FAECE7;
+  /* ✏️ COR SECUNDÁRIA (azul)   */ --blue:#185FA5;--blue-light:#E6F1FB;
+  /* ✏️ COR TERCEIRA (verde)     */ --green:#3B6D11;--green-light:#EAF3DE;
+  /* ✏️ COR QUARTA (âmbar)       */ --amber:#BA7517;--amber-light:#FAEEDA;
   --purple:#534AB7;--purple-light:#EEEDFE;
   --teal:#0F6E56;--teal-light:#E0F4EF;
   --gray-50:#F7F6F3;--gray-100:#EEECE8;--gray-200:#D3D1C7;
   --gray-400:#888780;--gray-600:#5F5E5A;--gray-800:#2C2C2A;
-  --ink:#1A1917;--page:#F0EEE9;
+  --ink:#1A1917;/* ✏️ COR DE FUNDO DA PÁGINA   */ --page:#F0EEE9;
   --card:#fff;--border:1px solid #EEECE8;
   --radius:12px;--radius-sm:8px;
 }
@@ -183,6 +183,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-inner">
+    <!-- ✏️ NOME DO PORTAL -->
     <span class="logo-pill">IMIRANTE.COM</span>
     <div class="nav-tabs">
       <div class="nav-tab active" onclick="goTab('home',this)">Visão Geral</div>
@@ -194,7 +195,6 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
       <div class="nav-tab" onclick="goTab('ticket',this)">Ticket Médio</div>
     </div>
     <div class="topbar-actions">
-      <span class="last-update" id="lastUpdate">Atualizado agora</span>
       <button class="btn-update" id="btnUpdate" onclick="refreshData()" title="Buscar dados atualizados da planilha Google Sheets">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         Atualizar
@@ -212,13 +212,14 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
   <!-- HERO -->
   <div class="hero">
+    <!-- ✏️ TÍTULO DO MÊS ATUAL -->
     <div class="hero-tag">Mês atual · Maio 2026</div>
-    <div class="hero-title">R$ 75.026</div>
-    <div class="hero-sub">faturamento em maio · 26 vendas · 18 clientes únicos</div>
+    <div class="hero-title">R$ 243.689</div>
+    <div class="hero-sub">faturamento em maio · 35 vendas · 26 clientes únicos</div>
     <div class="hero-kpis">
       <div class="hero-kpi">
         <div class="hero-kpi-label">Fat. Acumulado 2026</div>
-        <div class="hero-kpi-val">R$ 346,8k</div>
+        <div class="hero-kpi-val">R$ 1.139,5k</div>
         <div class="hero-kpi-sub">Jan–Mai 2026</div>
       </div>
       <div class="hero-kpi">
@@ -228,8 +229,8 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
       </div>
       <div class="hero-kpi">
         <div class="hero-kpi-label">Ticket Médio Mai</div>
-        <div class="hero-kpi-val">R$ 2.886</div>
-        <div class="hero-kpi-sub">vs R$ 2.367 em Jan</div>
+        <div class="hero-kpi-val">R$ 6.963</div>
+        <div class="hero-kpi-sub">vs R$ 5.770 em Jan</div>
       </div>
       <div class="hero-kpi">
         <div class="hero-kpi-label">Clientes ativos 2026</div>
@@ -246,7 +247,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
       <div class="dest-tag">🏆 Maior faturamento</div>
       <div class="dest-name">Ana Maria Ferreira</div>
       <div class="dest-val">R$ 110.602</div>
-      <div class="dest-desc">32% do total · ticket médio R$ 5.821</div>
+      <div class="dest-desc">10% do total varejo · ticket médio R$ 5.821</div>
     </div>
     <div class="dest-card dbl">
       <div class="dest-tag">👥 Maior carteira</div>
@@ -263,23 +264,29 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
     <div class="dest-card da">
       <div class="dest-tag">💰 Mais lucrativo</div>
       <div class="dest-name">Especial Publicitário</div>
-      <div class="dest-val">R$ 58.050</div>
-      <div class="dest-desc">6 contratos · ticket R$ 9.675</div>
+      <div class="dest-val">R$ 708.050</div>
+      <div class="dest-desc">11 contratos · ticket R$ 64.368</div>
     </div>
     <div class="dest-card dp">
       <div class="dest-tag">📈 Melhor mês</div>
       <div class="dest-name">Abril 2026</div>
-      <div class="dest-val">R$ 88.341</div>
-      <div class="dest-desc">+62% vs Janeiro · 24 vendas</div>
+      <div class="dest-val">R$ 243.689</div>
+      <div class="dest-desc">Melhor mês · 35 vendas</div>
     </div>
     <div class="dest-card dt">
       <div class="dest-tag">🏢 Setor líder</div>
       <div class="dest-name">Serviços</div>
-      <div class="dest-val">R$ 212.697 · 61%</div>
-      <div class="dest-desc">75 vendas · 40 clientes únicos</div>
+      <div class="dest-val">R$ 694.845 · 61%</div>
+      <div class="dest-desc">75 contratos · setor dominante</div>
     </div>
   </div>
 
+
+  <!-- STATUS BAR -->
+  <div id="statusBar" style="background:#F7F6F3;border:1px solid #EEECE8;border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:12px;color:#5F5E5A;font-family:'Sora',sans-serif;margin-bottom:1.5rem">
+    <span id="statusDot" style="width:8px;height:8px;border-radius:50%;background:#3B6D11;flex-shrink:0;display:inline-block"></span>
+    <span id="statusText">Dados Jan–Mai 2026 carregados · Clique "Atualizar" para buscar novos dados da planilha</span>
+  </div>
   <div class="istrip">
     <div class="iitem"><div class="ilabel">Maior ticket médio</div><div class="ival">R$ 5.821</div><div class="isub">Ana Maria Ferreira</div></div>
     <div class="iitem"><div class="ilabel">Banner mais valioso</div><div class="ival">Banner Topo</div><div class="isub">R$ 49.403 acumulado</div></div>
@@ -351,9 +358,9 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--green)"></span>Acumulado YTD Jan–Mai</div>
       <ul class="rank-list">
-        <li class="rank-item"><span class="rnum">2025</span><span class="rname">Faturamento estimado</span><span class="rval" style="color:var(--gray-400)">R$ 297.000</span></li>
-        <li class="rank-item"><span class="rnum">2026</span><span class="rname">Faturamento realizado</span><span class="rval" style="color:var(--brand)">R$ 346.873</span></li>
-        <li class="rank-item"><span class="rnum">Δ</span><span class="rname">Crescimento</span><span class="rval delta-up">+R$ 49.873 (+16,8%)</span></li>
+        <li class="rank-item"><span class="rnum">2025</span><span class="rname">Faturamento estimado</span><span class="rval" style="color:var(--gray-400)">R$ 968.536</span></li>
+        <li class="rank-item"><span class="rnum">2026</span><span class="rname">Faturamento realizado</span><span class="rval" style="color:var(--brand)">R$ 1.139.454</span></li>
+        <li class="rank-item"><span class="rnum">Δ</span><span class="rname">Crescimento</span><span class="rval delta-up">+R$ 170.918 (+17,6%)</span></li>
       </ul>
     </div>
     <div class="card">
@@ -480,73 +487,75 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
 <script>
 // ══════════════════ DADOS ══════════════════
+// ✏️ BLOCO DE DADOS — edite aqui os valores fixos do dashboard
+// Cada linha corresponde a uma métrica. Separe valores por vírgula.
 const D = {
   fatVend:{"Ana Maria Ferreira":110602.5,"Madelon Araujo":82847.66,"Carol Carvalho":53612,"Micheline Araujo":43870.1,"Ednan Raulino":24943.4,"Licia":15883.89,"Cristiane Gusmão":7800,"Rafael":7314},
   cliVend:{"Madelon Araujo":16,"Ana Maria Ferreira":8,"Licia":8,"Ednan Raulino":7,"Micheline Araujo":7,"Carol Carvalho":5,"Cristiane Gusmão":4,"Rafael":3},
   vendasVend:{"Ana Maria Ferreira":19,"Madelon Araujo":32,"Carol Carvalho":17,"Micheline Araujo":17,"Ednan Raulino":15,"Licia":12,"Cristiane Gusmão":7,"Rafael":4},
   ticketVend:{"Ana Maria Ferreira":5821.18,"Carol Carvalho":3153.65,"Madelon Araujo":2588.99,"Micheline Araujo":2580.59,"Rafael":1828.5,"Ednan Raulino":1662.89,"Licia":1323.66,"Cristiane Gusmão":1114.29},
-  prodQtde:{"Publieditorial":28,"Edital":20,"Reels":14,"Banner Topo":11,"Poupança de Mídia":10,"Especial Publicitário":6,"Publicidade Legal":6,"Banner Lateral Notícias":5,"Painel Culinária":3,"Rede Social":3},
-  prodValor:{"Especial Publicitário":58050,"Publieditorial":57124.89,"Banner Topo":49403.4,"Reels":41460,"Poupança de Mídia":37190.26,"Edital":23508,"Rede Social":11700,"Publicidade Legal":10971.8,"Banner Lateral Notícias":3855,"Post no story":3625,"Outdoor 2":3420,"Outdoor 1":3205.6,"Painel Culinária":2629.6},
-  prodTicket:{"Especial Publicitário":9675,"Banner Topo":4491.2,"Rede Social":3900,"Poupança de Mídia":3719,"Reels":2961.4,"Publieditorial":2040.2,"Publicidade Legal":1828.6,"Banner Lateral Notícias":771},
-  mesValor:[["Jan",54442.15],["Fev",60197.5],["Mar",68866.4],["Abr",88341.28],["Mai",75026.22]],
-  mesVendas:[["Jan",23],["Fev",22],["Mar",28],["Abr",24],["Mai",26]],
-  mesClientes:[["Jan",21],["Fev",20],["Mar",26],["Abr",22],["Mai",18]],
-  mesTicket:[["Jan",2367.05],["Fev",2736.25],["Mar",2459.51],["Abr",3680.89],["Mai",2885.62]],
-  setorValor:{"Serviços":212697.55,"Indústria":59502,"Comércio":57816.2,"Públicos":11550,"Financeiro":5307.8},
-  setorVendas:{"Serviços":75,"Indústria":6,"Comércio":26,"Públicos":10,"Financeiro":6},
-  setorClientes:{"Serviços":40,"Indústria":2,"Comércio":12,"Públicos":2,"Financeiro":2},
-  // Breakdown mensal por vendedor
+  prodQtde:{"Edital":45,"Publieditorial":32,"Banner Topo":17,"Reels":16,"Especial Publicitário":11,"Poupança de Mídia":11,"Publicidade Legal":7,"Banner Lateral Notícias":5,"Mídia programática":4,"Painel Culinária":4,"Rede Social":3,"Post no story":2,"Outdoor 1":2,"Produção":2,"Publipost":2},
+  prodValor:{"Especial Publicitário":708050,"Banner Topo":70668.33,"Publieditorial":61312.97,"Reels":49548,"Transmissão LBF":40000,"Poupança de Mídia":39690.26,"Edital":38068,"Publicidade Legal":22365.2,"Mídia programática":15617.04,"Rede Social":11700,"Transmissão":11000,"Banner Lateral Notícias":3855,"Post no story":3625,"Painel Culinária":3506,"Outdoor 2":3420},
+  prodTicket:{"Especial Publicitário":64368.18,"Banner Topo":4157.55,"Transmissão LBF":40000,"Rede Social":3900,"Poupança de Mídia":3608.2,"Transmissão":11000,"Reels":3096.75,"Publieditorial":1916.03,"Publicidade Legal":3195.03,"Edital":846.07,"Banner Lateral Notícias":771},
+  mesValor:[["Jan",201941.34],["Fev",212491.16],["Mar",242306.4],["Abr",239026.88],["Mai",243688.75]],
+  mesVendas:[["Jan",35],["Fev",37],["Mar",35],["Abr",36],["Mai",35]],
+  mesClientes:[["Jan",30],["Fev",28],["Mar",31],["Abr",30],["Mai",26]],
+  mesTicket:[["Jan",5769.75],["Fev",5743.0],["Mar",6923.04],["Abr",6639.64],["Mai",6962.54]],
+  setorValor:{"Públicos":694845.46,"Serviços":316077.2,"Comércio":61192.6,"Indústria":59502,"Financeiro":7837.27},
+  setorVendas:{"Públicos":75,"Serviços":62,"Comércio":27,"Indústria":6,"Financeiro":8},
+  setorClientes:{"Públicos":15,"Serviços":38,"Comércio":14,"Indústria":2,"Financeiro":3},
   vendMes:{
-    "Ana Maria":  [15690,14846,22435,30041.5,27590],
-    "Madelon":    [8978,15640,14856,33143.66,10230],
-    "Carol":      [13792,9940,11220,8720,9940],
-    "Micheline":  [7921.8,13830.5,8421.4,8296.4,5400],
-    "Ednan":      [771,3171,2360,6212.8,12428.6],
-    "Licia":      [4309.35,2110,3320,1066.92,5077.62],
-    "Cristiane":  [2980,660,660,0,3500],
-    "Rafael":     [0,0,5594,860,860]
+    "Ana Maria Ferreira":[15690,14846,22435,30041.5,27590],
+    "Madelon Araujo":   [8978,15640,14856,33143.66,10230],
+    "Carol Carvalho":   [13792,9940,11220,8720,9940],
+    "Micheline Araujo": [7921.8,13830.5,8421.4,8296.4,5400],
+    "Ednan Raulino":    [771,3171,2360,6212.8,12428.6],
+    "Licia":            [4309.35,2110,3320,1066.92,5077.62],
+    "Cristiane Gusmão": [2980,660,660,0,3500],
+    "Rafael":           [0,0,5594,860,860]
   },
-  // Breakdown mensal por setor
   setorMes:{
-    "Serviços":   [26617.35,33651.5,37189,70322.08,44917.62],
-    "Indústria":  [14982,11130,11130,11130,11130],
-    "Comércio":   [11621.8,12545,16626.4,2865.4,14157.6],
-    "Públicos":   [450,2100,3150,1800,4050],
-    "Financeiro": [771,771,771,2223.8,771]
+    "Públicos":  [135894.58,148485.28,135390,137592,137483.6],
+    "Serviços":  [38671.96,39559.88,78389,80186.21,79270.15],
+    "Comércio":  [11621.8,12545,16626.4,5365.4,15034],
+    "Indústria": [14982,11130,11130,11130,11130],
+    "Financeiro":[771,771,771,4753.27,771]
   },
-  // Dados estimados 2025 (referência)
-  mes2025:[["Jan",46000],["Fev",52000],["Mar",58000],["Abr",71000],["Mai",70000]],
-  ticket2025:[["Jan",2100],["Fev",2400],["Mar",2200],["Abr",3100],["Mai",2650]],
-  ticketVend2025:{"Ana Maria Ferreira":4900,"Carol Carvalho":2750,"Madelon Araujo":2300,"Micheline Araujo":2200,"Rafael":1600,"Ednan Raulino":1400,"Licia":1150,"Cristiane Gusmão":980},
-  // Detalhamento mensal
+  // ✏️ DADOS ESTIMADOS 2025 (para comparativo) — substitua pelos reais quando disponível
+  mes2025:[["Jan",171650],["Fev",180620],["Mar",206160],["Abr",203173],["Mai",207135]],
+  // ✏️ TICKET MÉDIO ESTIMADO 2025
+  ticket2025:[["Jan",4904],["Fev",4882],["Mar",5885],["Abr",5644],["Mai",5918]],
+  ticketVend2025:{"Ana Maria Ferreira":4950,"Carol Carvalho":2680,"Madelon Araujo":2200,"Micheline Araujo":2190,"Rafael":1560,"Ednan Raulino":1410,"Licia":1120,"Cristiane Gusmão":950},
   monthly:{
-    Jan:{fat:54442.15,vendas:23,cli:21,ticket:2367.05,
+    Jan:{fat:201941.34,vendas:35,cli:30,ticket:5769.75,
       vend:{"Ana Maria Ferreira":[15690,3,3],"Carol Carvalho":[13792,4,4],"Micheline Araujo":[7921.8,3,2],"Madelon Araujo":[8978,4,4],"Licia":[4309.35,4,4],"Cristiane Gusmão":[2980,4,3],"Ednan Raulino":[771,1,1]},
-      setor:{"Serviços":26617.35,"Indústria":14982,"Comércio":11621.8,"Financeiro":771,"Públicos":450},
-      prod:{"Publieditorial":7,"Publicidade Legal":3,"Reels":2,"Edital":2,"Banner Lateral Notícias":1}},
-    Fev:{fat:60197.5,vendas:22,cli:20,ticket:2736.25,
-      vend:{"Madelon Araujo":[15640,8,7],"Ana Maria Ferreira":[14846,3,3],"Micheline Araujo":[13830.5,4,3],"Carol Carvalho":[9940,3,3],"Ednan Raulino":[3171,2,2],"Licia":[2110,1,1],"Cristiane Gusmão":[660,1,1]},
-      setor:{"Serviços":33651.5,"Comércio":12545,"Indústria":11130,"Públicos":2100,"Financeiro":771},
-      prod:{"Edital":6,"Poupança de Mídia":3,"Publieditorial":2,"Banner Topo":2,"Reels":2}},
-    Mar:{fat:68866.4,vendas:28,cli:26,ticket:2459.51,
-      vend:{"Ana Maria Ferreira":[22435,4,4],"Madelon Araujo":[14856,9,8],"Carol Carvalho":[11220,4,4],"Micheline Araujo":[8421.4,4,3],"Rafael":[5594,2,2],"Licia":[3320,2,2],"Ednan Raulino":[2360,2,2],"Cristiane Gusmão":[660,1,1]},
-      setor:{"Serviços":37189,"Comércio":16626.4,"Indústria":11130,"Públicos":3150,"Financeiro":771},
-      prod:{"Publieditorial":7,"Edital":6,"Reels":4,"Poupança de Mídia":3,"Banner Topo":2}},
-    Abr:{fat:88341.28,vendas:24,cli:22,ticket:3680.89,
-      vend:{"Madelon Araujo":[33143.66,7,6],"Ana Maria Ferreira":[30041.5,4,4],"Carol Carvalho":[8720,3,3],"Micheline Araujo":[8296.4,4,3],"Ednan Raulino":[6212.8,4,4],"Licia":[1066.92,1,1],"Rafael":[860,1,1]},
-      setor:{"Serviços":70322.08,"Indústria":11130,"Comércio":2865.4,"Financeiro":2223.8,"Públicos":1800},
-      prod:{"Publieditorial":6,"Reels":3,"Banner Topo":3,"Edital":3,"Especial Publicitário":2}},
-    Mai:{fat:75026.22,vendas:26,cli:18,ticket:2885.62,
-      vend:{"Ana Maria Ferreira":[27590,5,4],"Carol Carvalho":[9940,3,3],"Madelon Araujo":[10230,4,3],"Ednan Raulino":[12428.6,6,4],"Licia":[5077.62,4,2],"Micheline Araujo":[5400,2,0],"Cristiane Gusmão":[3500,1,1],"Rafael":[860,1,1]},
-      setor:{"Serviços":44917.62,"Comércio":14157.6,"Indústria":11130,"Públicos":4050,"Financeiro":771},
-      prod:{"Publieditorial":6,"Reels":3,"Edital":3,"Banner Topo":3,"Publicidade Legal":2}}
+      setor:{"Públicos":135894.58,"Serviços":38671.96,"Indústria":14982,"Comércio":11621.8,"Financeiro":771},
+      prod:{"Publieditorial":10,"Edital":7,"Publicidade Legal":3,"Especial Publicitário":2,"Banner Topo":2,"Reels":2,"Banner Lateral Notícias":1,"Painel Culinária":1,"Poupança de Mídia":1,"Publipost":1,"Rede Social":1,"Outros":1,"Post no story":1,"Mídia programática":1}},
+    Fev:{fat:212491.16,vendas:37,cli:28,ticket:5743.0,
+      vend:{"Ana Maria Ferreira":[14846,3,3],"Carol Carvalho":[9940,3,3],"Cristiane Gusmão":[660,1,1],"Ednan Raulino":[3171,2,2],"Licia":[2110,1,1],"Madelon Araujo":[15640,8,7],"Micheline Araujo":[13830.5,4,3]},
+      setor:{"Públicos":148485.28,"Serviços":39559.88,"Comércio":12545,"Indústria":11130,"Financeiro":771},
+      prod:{"Edital":15,"Banner Topo":4,"Publieditorial":3,"Poupança de Mídia":3,"Reels":3,"Especial Publicitário":2,"Banner Lateral Notícias":1,"Rede Social":1,"Mídia programática":1}},
+    Mar:{fat:242306.4,vendas:35,cli:31,ticket:6923.04,
+      vend:{"Ana Maria Ferreira":[22435,4,4],"Carol Carvalho":[11220,4,4],"Cristiane Gusmão":[660,1,1],"Ednan Raulino":[2360,2,2],"Licia":[3320,2,2],"Madelon Araujo":[14856,9,8],"Micheline Araujo":[8421.4,4,3],"Rafael":[5594,2,2]},
+      setor:{"Públicos":135390,"Serviços":78389,"Comércio":16626.4,"Indústria":11130,"Financeiro":771},
+      prod:{"Edital":10,"Publieditorial":7,"Reels":4,"Poupança de Mídia":3,"Banner Topo":2,"Especial Publicitário":2,"Painel Culinária":1,"Rede Social":1,"Outdoor 1":1,"Publipost":1,"Transmissão LBF":1,"Banner Lateral Notícias":1}},
+    Abr:{fat:239026.88,vendas:36,cli:30,ticket:6639.64,
+      vend:{"Ana Maria Ferreira":[30041.5,4,4],"Carol Carvalho":[8720,3,3],"Ednan Raulino":[6212.8,4,4],"Licia":[1066.92,1,1],"Madelon Araujo":[33143.66,7,6],"Micheline Araujo":[8296.4,4,3],"Rafael":[860,1,1]},
+      setor:{"Públicos":137592,"Serviços":80186.21,"Indústria":11130,"Financeiro":4753.27,"Comércio":5365.4},
+      prod:{"Edital":8,"Publieditorial":6,"Banner Topo":5,"Especial Publicitário":3,"Reels":3,"Poupança de Mídia":3,"Mídia programática":2,"Banner Lateral Notícias":1,"Painel Culinária":1,"Outdoor 2":1,"Produção":1,"Publicidade Legal":1}},
+    Mai:{fat:243688.75,vendas:35,cli:26,ticket:6962.54,
+      vend:{"Ana Maria Ferreira":[27590,5,4],"Carol Carvalho":[9940,3,3],"Cristiane Gusmão":[3500,1,1],"Ednan Raulino":[12428.6,6,4],"Licia":[5077.62,4,2],"Madelon Araujo":[10230,4,3],"Micheline Araujo":[5400,2,0],"Rafael":[860,1,1]},
+      setor:{"Públicos":137483.6,"Serviços":79270.15,"Comércio":15034,"Indústria":11130,"Financeiro":771},
+      prod:{"Publieditorial":6,"Edital":5,"Reels":4,"Banner Topo":4,"Publicidade Legal":3,"Especial Publicitário":2,"Banner Lateral Notícias":1,"Transmissão":1,"Poupança de Mídia":1,"Produção":1,"Painel Culinária":1,"Outdoor 1":1,"Post no story":1}}
   }
 };
 
+// ✏️ PALETA DE CORES DOS GRÁFICOS — 8 cores em ordem de uso
 const COLORS=['#D85A30','#185FA5','#3B6D11','#BA7517','#534AB7','#993C1D','#0F6E56','#C0392B'];
+// ✏️ CORES DOS SETORES (mesma ordem que setorValor nos dados)
 const SETOR_COLORS=['#D85A30','#185FA5','#3B6D11','#BA7517','#534AB7'];
 const MONTHS=['Jan','Fev','Mar','Abr','Mai'];
-const TOTAL=346873.35;
+const TOTAL=1139454.53;
 
 // ══════════════════ HELPERS ══════════════════
 function fR(v){return'R$\u00a0'+v.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0})}
@@ -824,73 +833,101 @@ function goTab(name,el){
 }
 
 // ══════════════════ GOOGLE SHEETS INTEGRATION ══════════════════
+// Usa Google Visualization API com JSONP — sem CORS, funciona em qualquer host
+// ✏️ ID DA PLANILHA GOOGLE SHEETS — não alterar
 const SHEET_ID = '1klUHysMZyKT4MDX0oMSFROaSGYDQTejAW8STGalBQEA';
-const SHEETS_CSV_BASE = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
+// ✏️ NOMES DAS ABAS DA PLANILHA (devem ser idênticos aos nomes das abas no Google Sheets)
 const MONTH_SHEETS = ['jan26','fev26','mar26','abr26','mai26','jun26','jul26','ago26','set26','out26','nov26','dez26'];
 const MONTH_LABELS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
-function parseCSVLine(line){
-  const result=[]; let cur=''; let inQ=false;
-  for(let i=0;i<line.length;i++){
-    const c=line[i];
-    if(c==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
-    else if(c===','&&!inQ){result.push(cur.trim());cur='';}
-    else cur+=c;
-  }
-  result.push(cur.trim());
-  return result;
+function setStatus(text, color){
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  if(txt) txt.textContent = text;
+  if(dot) dot.style.background = color || '#888780';
 }
 
 function parseNum(s){
-  if(!s||s===''||s==='null')return 0;
-  return parseFloat(s.replace(/[^\d,.-]/g,'').replace(',','.').replace(/\.(?=.*\.)/g,''))||0;
+  if(!s||s===''||s==='null'||s===undefined)return 0;
+  const n=parseFloat(String(s).replace(/[^\d,.-]/g,'').replace(',','.'));
+  return isNaN(n)?0:n;
 }
 
-async function fetchSheet(sheetName){
-  const url=SHEETS_CSV_BASE+encodeURIComponent(sheetName);
-  const r=await fetch(url);
-  if(!r.ok)throw new Error(`Erro ao buscar aba ${sheetName}: ${r.status}`);
-  const text=await r.text();
-  return text.split('\n').map(l=>parseCSVLine(l));
+// JSONP: injeta <script> e aguarda callback — contorna CORS completamente
+function fetchSheetJSONP(sheetName){
+  return new Promise((resolve, reject)=>{
+    const cbName = '__gvizCb_'+sheetName.replace(/\W/g,'_')+'_'+Date.now();
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&tq=select+*&sheet=${encodeURIComponent(sheetName)}&callback=${cbName}`;
+    const script = document.createElement('script');
+    const timeout = setTimeout(()=>{
+      cleanup();
+      reject(new Error('Timeout: '+sheetName));
+    }, 12000);
+    function cleanup(){ 
+      clearTimeout(timeout);
+      delete window[cbName];
+      if(script.parentNode) script.parentNode.removeChild(script);
+    }
+    window[cbName] = function(data){
+      cleanup();
+      resolve(data);
+    };
+    script.onerror = ()=>{ cleanup(); reject(new Error('Erro ao carregar: '+sheetName)); };
+    script.src = url;
+    document.head.appendChild(script);
+  });
 }
 
-function processSheetRows(rows, monthLabel){
-  // Find header row (row with VENDEDOR)
-  let headerIdx=-1;
-  let colVend=-1,colValor=-1,colProd1=-1,colSetor=-1,colCodigo=-1,colNome=-1,colAgencia=-1,colHist=-1;
-  for(let i=0;i<rows.length;i++){
-    const r=rows[i];
-    const vi=r.findIndex(c=>c.trim()==='VENDEDOR');
-    if(vi>=0){headerIdx=i;colVend=vi;break;}
-  }
-  if(headerIdx<0)return[];
-  const h=rows[headerIdx];
-  const fc=(n)=>h.findIndex(c=>c.trim()===n);
-  colValor=fc('VALOR LÍQUIDO');colProd1=fc('PRODUTO 1');colSetor=fc('SETOR');
-  colCodigo=fc('CÓDIGO');colNome=fc('NOME FANTASIA');colAgencia=fc('AGÊNCIA');colHist=fc('HISTÓRICO');
-
-  const data=[];
-  for(let i=headerIdx+1;i<rows.length;i++){
-    const r=rows[i];
-    const vend=colVend>=0?r[colVend]:'';
-    const valorStr=colValor>=0?r[colValor]:'';
-    if(!vend||!vend.trim()||!valorStr||!valorStr.trim())continue;
-    const valor=parseNum(valorStr);
-    if(valor<=0)continue;
-    data.push({
-      mes:monthLabel,
-      vendedor:vend.trim(),
-      valor,
-      produto:colProd1>=0?r[colProd1]?.trim()||null:null,
-      setor:colSetor>=0?r[colSetor]?.trim()||null:null,
-      codigo:colCodigo>=0?r[colCodigo]?.trim()||null:null,
-      nome:colNome>=0?r[colNome]?.trim()||null:null,
-      agencia:colAgencia>=0?r[colAgencia]?.trim()||null:null,
-      historico:colHist>=0?r[colHist]?.trim()||null:null,
-    });
-  }
-  return data;
+function processGVizTable(gvizData, monthLabel){
+  // gvizData.table.cols = [{label, type}]
+  // gvizData.table.rows = [{c:[{v:value}]}]
+  try{
+    const table = gvizData.table;
+    if(!table||!table.cols||!table.rows) return [];
+    const cols = table.cols.map(col=>col.label||col.id||'');
+    
+    // Find key column indices
+    const fc=(name)=>cols.findIndex(h=>h.trim()===name);
+    const colVend  = fc('VENDEDOR');
+    const colValor = fc('VALOR LÍQUIDO');
+    const colProd1 = fc('PRODUTO 1');
+    const colSetor = fc('SETOR');
+    const colCodigo= fc('CÓDIGO');
+    const colNome  = fc('NOME FANTASIA');
+    const colAg    = fc('AGÊNCIA');
+    
+    if(colValor<0) return [];
+    
+    const getV=(row,idx)=>{
+      if(idx<0||!row.c||!row.c[idx]) return null;
+      const cell=row.c[idx];
+      return cell.v!==null&&cell.v!==undefined ? cell.v : (cell.f||null);
+    };
+    
+    const data=[];
+    for(const row of table.rows){
+      const valorRaw = getV(row, colValor);
+      const nomeRaw  = getV(row, colNome);
+      if(valorRaw===null||nomeRaw===null||nomeRaw==='') continue;
+      const valor = parseNum(String(valorRaw));
+      if(valor<=0) continue;
+      const vendRaw = getV(row, colVend);
+      const vend = (vendRaw&&String(vendRaw).trim()) ? String(vendRaw).trim() : '(Sem vendedor)';
+      data.push({
+        mes:     monthLabel,
+        vendedor: vend,
+        valor,
+        produto:  colProd1>=0 ? (getV(row,colProd1)||'') : '',
+        setor:    colSetor>=0 ? (getV(row,colSetor)||'') : '',
+        codigo:   colCodigo>=0? (getV(row,colCodigo)||'') : '',
+        nome:     String(nomeRaw).trim(),
+        agencia:  colAg>=0   ? (getV(row,colAg)||'') : '',
+      });
+    }
+    return data;
+  }catch(e){ console.warn('processGVizTable error:',e); return []; }
 }
+
 
 function rebuildDFromRows(allRows){
   // Group by month
@@ -1039,43 +1076,60 @@ function showToast(msg,type){
 
 async function refreshData(){
   const btn=document.getElementById('btnUpdate');
-  const lbl=document.getElementById('lastUpdate');
   btn.classList.add('loading');
   btn.disabled=true;
-  lbl.textContent='Buscando dados…';
+  setStatus('Buscando dados da planilha…', '#BA7517');
 
   try{
     const allRows=[];
-    const results=[];
-    // Try fetching each month sheet
+    const loaded=[];
+    const failed=[];
+
+    // Fetch all months via JSONP (sem CORS)
     for(let i=0;i<MONTH_SHEETS.length;i++){
       try{
-        const rows=await fetchSheet(MONTH_SHEETS[i]);
-        const processed=processSheetRows(rows,MONTH_LABELS[i]);
+        setStatus(`Carregando ${MONTH_LABELS[i]}…`, '#BA7517');
+        const gvizData = await fetchSheetJSONP(MONTH_SHEETS[i]);
+        const processed = processGVizTable(gvizData, MONTH_LABELS[i]);
         if(processed.length>0){
           allRows.push(...processed);
-          results.push(MONTH_LABELS[i]);
+          loaded.push(MONTH_LABELS[i]);
         }
       }catch(e){
-        // Month not available yet, skip silently
+        failed.push(MONTH_SHEETS[i]);
+        // Meses sem dados ainda — ignorar silenciosamente
       }
     }
 
     if(allRows.length===0){
-      throw new Error('Nenhum dado encontrado. Verifique se a planilha está compartilhada publicamente.');
+      throw new Error('Nenhum dado encontrado. Verifique o acesso à planilha.');
     }
 
     rebuildDFromRows(allRows);
+
+    // Update hero with live data from most recent month
+    const lastMes = loaded[loaded.length-1];
+    const lastData = D.monthly[lastMes];
+    if(lastData){
+      const heroTitle = document.querySelector('.hero-title');
+      const heroSub   = document.querySelector('.hero-sub');
+      const heroTag   = document.querySelector('.hero-tag');
+      if(heroTag)   heroTag.textContent   = `Mês atual · ${lastMes} 2026`;
+      if(heroTitle) heroTitle.textContent = `R$ ${Math.round(lastData.fat).toLocaleString('pt-BR')}`;
+      if(heroSub)   heroSub.textContent   = `faturamento em ${lastMes} · ${lastData.vendas} vendas · ${lastData.cli} clientes únicos`;
+    }
+
     rebuildAllCharts();
 
-    const now=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-    lbl.textContent=`Atualizado ${now} · ${results.join(', ')}`;
-    showToast(`✓ Dados atualizados: ${results.length} meses carregados`,'ok');
+    const now = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const mesesStr = loaded.join(', ');
+    setStatus(`Atualizado às ${now} · ${mesesStr} · ${allRows.length} registros`, '#3B6D11');
+    showToast(`✓ ${loaded.length} meses carregados (${allRows.length} registros)`, 'ok');
 
   }catch(err){
-    lbl.textContent='Erro ao atualizar';
-    showToast('⚠ '+err.message,'err');
-    console.error('Erro refreshData:',err);
+    setStatus('Erro ao atualizar: '+err.message, '#D85A30');
+    showToast('⚠ '+err.message, 'err');
+    console.error('refreshData error:', err);
   }finally{
     btn.classList.remove('loading');
     btn.disabled=false;
@@ -1094,7 +1148,7 @@ function savePDF(){
 // ══════════════════ INIT ══════════════════
 buildHome();
 tabBuilt['home']=true;
-document.getElementById('lastUpdate').textContent='Dados de Jan–Mai 2026 (clique Atualizar Planilha para buscar dados novos)';
+setStatus('Dados Jan–Mai 2026 · Clique "Atualizar" para buscar novos dados da planilha', '#888780');
 </script>
 </body>
 </html>
