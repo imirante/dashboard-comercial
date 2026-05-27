@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Comercial — Imirante.com 2026 </title>
+<title>Dashboard Comercial — Imirante.com 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
@@ -195,6 +195,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
       <div class="nav-tab" onclick="goTab('ticket',this)">Ticket Médio</div>
     </div>
     <div class="topbar-actions">
+      <span id="lastUpdateTop" style="font-size:11px;color:#888780;font-family:'DM Mono',monospace;white-space:nowrap"></span>
       <button class="btn-update" id="btnUpdate" onclick="refreshData()" title="Buscar dados atualizados da planilha Google Sheets">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         Atualizar
@@ -487,8 +488,6 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
 <script>
 // ══════════════════ DADOS ══════════════════
-// ✏️ BLOCO DE DADOS — edite aqui os valores fixos do dashboard
-// Cada linha corresponde a uma métrica. Separe valores por vírgula.
 const D = {
   fatVend:{"Ana Maria Ferreira":110602.5,"Madelon Araujo":82847.66,"Carol Carvalho":53612,"Micheline Araujo":43870.1,"Ednan Raulino":24943.4,"Licia":15883.89,"Cristiane Gusmão":7800,"Rafael":7314},
   cliVend:{"Madelon Araujo":16,"Ana Maria Ferreira":8,"Licia":8,"Ednan Raulino":7,"Micheline Araujo":7,"Carol Carvalho":5,"Cristiane Gusmão":4,"Rafael":3},
@@ -521,16 +520,14 @@ const D = {
     "Indústria": [14982,11130,11130,11130,11130],
     "Financeiro":[771,771,771,4753.27,771]
   },
-  // ✏️ DADOS ESTIMADOS 2025 (para comparativo) — substitua pelos reais quando disponível
   mes2025:[["Jan",171650],["Fev",180620],["Mar",206160],["Abr",203173],["Mai",207135]],
-  // ✏️ TICKET MÉDIO ESTIMADO 2025
   ticket2025:[["Jan",4904],["Fev",4882],["Mar",5885],["Abr",5644],["Mai",5918]],
   ticketVend2025:{"Ana Maria Ferreira":4950,"Carol Carvalho":2680,"Madelon Araujo":2200,"Micheline Araujo":2190,"Rafael":1560,"Ednan Raulino":1410,"Licia":1120,"Cristiane Gusmão":950},
   monthly:{
     Jan:{fat:201941.34,vendas:35,cli:30,ticket:5769.75,
       vend:{"Ana Maria Ferreira":[15690,3,3],"Carol Carvalho":[13792,4,4],"Micheline Araujo":[7921.8,3,2],"Madelon Araujo":[8978,4,4],"Licia":[4309.35,4,4],"Cristiane Gusmão":[2980,4,3],"Ednan Raulino":[771,1,1]},
       setor:{"Públicos":135894.58,"Serviços":38671.96,"Indústria":14982,"Comércio":11621.8,"Financeiro":771},
-      prod:{"Publieditorial":10,"Edital":7,"Publicidade Legal":3,"Especial Publicitário":2,"Banner Topo":2,"Reels":2,"Banner Lateral Notícias":1,"Painel Culinária":1,"Poupança de Mídia":1,"Publipost":1,"Rede Social":1,"Outros":1,"Post no story":1,"Mídia programática":1}},
+      prod:{"Publieditorial":10,"Edital":7,"Publicidade Legal":3,"Especial Publicitário":2,"Banner Topo":2,"Reels":2,"Banner Lateral Notícias":1,"Painel Culinária":1,"Poupança de Mídia":1,"Publipost":1,"Rede Social":1,"Post no story":1,"Mídia programática":1}},
     Fev:{fat:212491.16,vendas:37,cli:28,ticket:5743.0,
       vend:{"Ana Maria Ferreira":[14846,3,3],"Carol Carvalho":[9940,3,3],"Cristiane Gusmão":[660,1,1],"Ednan Raulino":[3171,2,2],"Licia":[2110,1,1],"Madelon Araujo":[15640,8,7],"Micheline Araujo":[13830.5,4,3]},
       setor:{"Públicos":148485.28,"Serviços":39559.88,"Comércio":12545,"Indústria":11130,"Financeiro":771},
@@ -857,7 +854,7 @@ function parseNum(s){
 function fetchSheetJSONP(sheetName){
   return new Promise((resolve, reject)=>{
     const cbName = '__gvizCb_'+sheetName.replace(/\W/g,'_')+'_'+Date.now();
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&tq=select+*&sheet=${encodeURIComponent(sheetName)}&callback=${cbName}`;
+    const url = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(sheetName)+'&callback='+cbName;
     const script = document.createElement('script');
     const timeout = setTimeout(()=>{
       cleanup();
@@ -1076,19 +1073,19 @@ function showToast(msg,type){
 
 async function refreshData(){
   const btn=document.getElementById('btnUpdate');
+  const lut=document.getElementById('lastUpdateTop');
   btn.classList.add('loading');
   btn.disabled=true;
   setStatus('Buscando dados da planilha…', '#BA7517');
+  if(lut) lut.textContent = 'Atualizando…';
 
   try{
     const allRows=[];
     const loaded=[];
-    const failed=[];
 
-    // Fetch all months via JSONP (sem CORS)
     for(let i=0;i<MONTH_SHEETS.length;i++){
       try{
-        setStatus(`Carregando ${MONTH_LABELS[i]}…`, '#BA7517');
+        setStatus('Carregando '+MONTH_LABELS[i]+'…', '#BA7517');
         const gvizData = await fetchSheetJSONP(MONTH_SHEETS[i]);
         const processed = processGVizTable(gvizData, MONTH_LABELS[i]);
         if(processed.length>0){
@@ -1096,39 +1093,42 @@ async function refreshData(){
           loaded.push(MONTH_LABELS[i]);
         }
       }catch(e){
-        failed.push(MONTH_SHEETS[i]);
-        // Meses sem dados ainda — ignorar silenciosamente
+        console.log('Mês sem dados:', MONTH_SHEETS[i], e.message);
       }
     }
 
     if(allRows.length===0){
-      throw new Error('Nenhum dado encontrado. Verifique o acesso à planilha.');
+      throw new Error('Nenhum dado encontrado. Verifique se a planilha está compartilhada publicamente (qualquer pessoa com o link).');
     }
 
     rebuildDFromRows(allRows);
 
-    // Update hero with live data from most recent month
+    // Atualiza hero com dados do mês mais recente
     const lastMes = loaded[loaded.length-1];
     const lastData = D.monthly[lastMes];
     if(lastData){
       const heroTitle = document.querySelector('.hero-title');
       const heroSub   = document.querySelector('.hero-sub');
       const heroTag   = document.querySelector('.hero-tag');
-      if(heroTag)   heroTag.textContent   = `Mês atual · ${lastMes} 2026`;
-      if(heroTitle) heroTitle.textContent = `R$ ${Math.round(lastData.fat).toLocaleString('pt-BR')}`;
-      if(heroSub)   heroSub.textContent   = `faturamento em ${lastMes} · ${lastData.vendas} vendas · ${lastData.cli} clientes únicos`;
+      if(heroTag)   heroTag.textContent   = 'Mês atual · '+lastMes+' 2026';
+      if(heroTitle) heroTitle.textContent = 'R$ '+Math.round(lastData.fat).toLocaleString('pt-BR');
+      if(heroSub)   heroSub.textContent   = 'faturamento em '+lastMes+' · '+lastData.vendas+' vendas · '+lastData.cli+' clientes únicos';
     }
 
     rebuildAllCharts();
 
-    const now = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const now = new Date().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
     const mesesStr = loaded.join(', ');
-    setStatus(`Atualizado às ${now} · ${mesesStr} · ${allRows.length} registros`, '#3B6D11');
-    showToast(`✓ ${loaded.length} meses carregados (${allRows.length} registros)`, 'ok');
+    if(lut){ lut.textContent = 'Atualizado: '+now; }
+    try{ localStorage.setItem('imirante_last_update', now); }catch(e){}
+    setStatus('Atualizado em '+now+' · '+mesesStr+' · '+allRows.length+' registros', '#3B6D11');
+    showToast('✓ '+loaded.length+' meses · '+allRows.length+' registros carregados', 'ok');
 
   }catch(err){
-    setStatus('Erro ao atualizar: '+err.message, '#D85A30');
-    showToast('⚠ '+err.message, 'err');
+    const msg = err.message||'Erro desconhecido';
+    setStatus('Erro ao atualizar: '+msg, '#D85A30');
+    showToast('⚠ '+msg, 'err');
+    if(lut) lut.textContent = 'Falha na atualização';
     console.error('refreshData error:', err);
   }finally{
     btn.classList.remove('loading');
@@ -1148,7 +1148,12 @@ function savePDF(){
 // ══════════════════ INIT ══════════════════
 buildHome();
 tabBuilt['home']=true;
-setStatus('Dados Jan–Mai 2026 · Clique "Atualizar" para buscar novos dados da planilha', '#888780');
+(function(){
+  const lut = document.getElementById('lastUpdateTop');
+  const stored = localStorage.getItem('imirante_last_update');
+  if(stored && lut) lut.textContent = 'Atualizado: '+stored;
+  setStatus('Dados Jan–Mai 2026 · Clique "Atualizar" para buscar novos dados da planilha', '#888780');
+})();
 </script>
 </body>
 </html>
