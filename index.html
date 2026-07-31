@@ -176,6 +176,44 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
 /* ── NOTE ── */
 .note{font-size:11px;color:var(--gray-400);background:var(--amber-light);border:1px solid #FAC775;border-radius:6px;padding:8px 12px;margin-bottom:1.5rem;display:flex;gap:6px;align-items:flex-start}
+
+/* ── VAREJO/PÚBLICO SPLIT ── */
+.split-bar-wrap{margin-bottom:1.5rem}
+.split-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.split-label{font-size:11px;font-weight:600;color:var(--gray-600)}
+.split-pct{font-size:11px;font-family:'DM Mono',monospace;font-weight:600}
+.split-track{width:100%;height:28px;border-radius:6px;overflow:hidden;display:flex;margin-bottom:4px}
+.split-pub{background:#185FA5;display:flex;align-items:center;justify-content:flex-start;padding-left:10px;transition:width .6s ease}
+.split-var{background:#D85A30;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;transition:width .6s ease}
+.split-track-label{font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+.split-legend{display:flex;gap:16px;font-size:11px;color:var(--gray-600)}
+.split-leg-item{display:flex;align-items:center;gap:5px}
+.split-leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* ── MÊS COMPARATIVO ── */
+.mes-comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.mes-comp-kpi{background:var(--card);border:var(--border);border-radius:var(--radius-sm);padding:.875rem 1rem;position:relative}
+.mes-comp-label{font-size:10px;font-weight:500;color:var(--gray-400);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+.mes-comp-val{font-size:20px;font-weight:700;color:var(--ink);line-height:1}
+.mes-comp-delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;margin-top:4px;padding:2px 6px;border-radius:4px}
+.delta-chip-up{background:var(--green-light);color:var(--green)}
+.delta-chip-down{background:var(--brand-light);color:var(--brand-dark)}
+.delta-chip-na{background:var(--gray-100);color:var(--gray-400)}
+.mes-comp-prev{font-size:10px;color:var(--gray-400);font-family:'DM Mono',monospace;margin-top:2px}
+
+/* ── MÊS SETOR SPLIT ── */
+.mes-setor-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.5rem}
+.setor-big-card{border-radius:var(--radius);padding:1.25rem;border:1px solid transparent}
+.setor-big-card.pub{background:var(--blue-light);border-color:#B5D4F4}
+.setor-big-card.var{background:var(--brand-light);border-color:#F5C4B3}
+.setor-big-tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.setor-big-card.pub .setor-big-tag{color:#0C447C}
+.setor-big-card.var .setor-big-tag{color:var(--brand-dark)}
+.setor-big-val{font-size:22px;font-weight:700;margin-bottom:2px}
+.setor-big-card.pub .setor-big-val{color:var(--blue)}
+.setor-big-card.var .setor-big-val{color:var(--brand)}
+.setor-big-sub{font-size:12px;color:var(--gray-600);font-family:'DM Mono',monospace}
+.setor-big-delta{font-size:11px;font-weight:600;margin-top:6px}
 </style>
 </head>
 <body>
@@ -191,7 +229,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
       <div class="nav-tab" onclick="goTab('comparativo',this)">Comparativo 2025 × 2026</div>
       <div class="nav-tab" onclick="goTab('vendedores',this)">Ranking Vendedores</div>
       <div class="nav-tab" onclick="goTab('setores',this)">Ranking Setores</div>
-      <div class="nav-tab" onclick="goTab('produtos',this)">Ranking Posicionamentos</div>
+      <div class="nav-tab" onclick="goTab('produtos',this)">Ranking Mídias / Posicionamentos</div>
       <div class="nav-tab" onclick="goTab('ticket',this)">Ticket Médio</div>
     </div>
     <div class="topbar-actions">
@@ -208,35 +246,36 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
   </div>
 </div>
 
+
 <!-- ══════════════════ TAB: VISÃO GERAL ══════════════════ -->
 <div class="page active" id="tab-home">
 
   <!-- HERO -->
   <div class="hero">
     <!-- ✏️ TÍTULO DO MÊS ATUAL -->
-    <div class="hero-tag">Mês atual · Maio 2026</div>
-    <div class="hero-title">R$ 243.689</div>
-    <div class="hero-sub">faturamento em maio · 35 vendas · 26 clientes únicos</div>
+    <div class="hero-tag" id="heroTag">⏳ Carregando dados mais recentes…</div>
+    <div class="hero-title" id="heroTitle" style="opacity:.4">R$ ----</div>
+    <div class="hero-sub" id="heroSub" style="opacity:.4">buscando na planilha…</div>
     <div class="hero-kpis">
       <div class="hero-kpi">
-        <div class="hero-kpi-label">Fat. Acumulado 2026</div>
-        <div class="hero-kpi-val">R$ 1.139,5k</div>
-        <div class="hero-kpi-sub">Jan–Mai 2026</div>
+        <div class="hero-kpi-label" id="hkAcumLabel">Fat. Acumulado 2026</div>
+        <div class="hero-kpi-val" id="hkAcumVal">R$ 1.139,5k</div>
+        <div class="hero-kpi-sub" id="hkAcumSub">Jan–Mai 2026</div>
       </div>
       <div class="hero-kpi">
-        <div class="hero-kpi-label">Crescimento Jan→Abr</div>
-        <div class="hero-kpi-val">+62%</div>
-        <div class="hero-kpi-sub">melhor mês: Abril</div>
+        <div class="hero-kpi-label" id="hkCrescLabel">Crescimento Jan→Abr</div>
+        <div class="hero-kpi-val" id="hkCrescVal">+62%</div>
+        <div class="hero-kpi-sub" id="hkCrescSub">melhor mês: Abril</div>
       </div>
       <div class="hero-kpi">
-        <div class="hero-kpi-label">Ticket Médio Mai</div>
-        <div class="hero-kpi-val">R$ 6.963</div>
-        <div class="hero-kpi-sub">vs R$ 5.770 em Jan</div>
+        <div class="hero-kpi-label" id="hkTicketLabel">Ticket Médio Mai</div>
+        <div class="hero-kpi-val" id="hkTicketVal">R$ 6.963</div>
+        <div class="hero-kpi-sub" id="hkTicketSub">vs R$ 5.770 em Jan</div>
       </div>
       <div class="hero-kpi">
         <div class="hero-kpi-label">Clientes ativos 2026</div>
-        <div class="hero-kpi-val">58</div>
-        <div class="hero-kpi-sub">clientes únicos</div>
+        <div class="hero-kpi-val" id="hkCliVal">58</div>
+        <div class="hero-kpi-sub" id="hkCliSub">clientes únicos</div>
       </div>
     </div>
   </div>
@@ -246,53 +285,88 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
   <div class="dest-grid">
     <div class="dest-card db">
       <div class="dest-tag">🏆 Maior faturamento</div>
-      <div class="dest-name">Ana Maria Ferreira</div>
-      <div class="dest-val">R$ 110.602</div>
-      <div class="dest-desc">10% do total varejo · ticket médio R$ 5.821</div>
+      <div class="dest-name" id="dTopVendNome">Ana Maria Ferreira</div>
+      <div class="dest-val" id="dTopVendVal">R$ 110.602</div>
+      <div class="dest-desc" id="dTopVendDesc">ticket médio R$ 5.821 · 19 contratos</div>
     </div>
     <div class="dest-card dbl">
       <div class="dest-tag">👥 Maior carteira</div>
-      <div class="dest-name">Madelon Araujo</div>
-      <div class="dest-val">16 clientes únicos</div>
-      <div class="dest-desc">32 vendas · R$ 82.847 acumulado</div>
+      <div class="dest-name" id="dTopCliNome">Madelon Araujo</div>
+      <div class="dest-val" id="dTopCliVal">16 clientes únicos</div>
+      <div class="dest-desc" id="dTopCliDesc">32 vendas · R$ 82.847 acumulado</div>
     </div>
     <div class="dest-card dg">
-      <div class="dest-tag">📊 Mais vendido (qtde)</div>
-      <div class="dest-name">Publieditorial</div>
-      <div class="dest-val">28 vendas · R$ 57.124</div>
-      <div class="dest-desc">produto de maior recorrência</div>
+      <div class="dest-tag">🎬 Mídia mais vendida (qtde)</div>
+      <div class="dest-name" id="dTopQtdeNome">Edital</div>
+      <div class="dest-val" id="dTopQtdeVal">45 vendas · R$ 38.068</div>
+      <div class="dest-desc" id="dTopQtdeDesc">posicionamento de maior recorrência</div>
     </div>
     <div class="dest-card da">
-      <div class="dest-tag">💰 Mais lucrativo</div>
-      <div class="dest-name">Especial Publicitário</div>
-      <div class="dest-val">R$ 708.050</div>
-      <div class="dest-desc">11 contratos · ticket R$ 64.368</div>
+      <div class="dest-tag">💰 Mídia mais vendida (faturamento)</div>
+      <div class="dest-name" id="dTopValNome">Especial Publicitário</div>
+      <div class="dest-val" id="dTopValVal">R$ 708.050</div>
+      <div class="dest-desc" id="dTopValDesc">11 contratos · ticket R$ 64.368</div>
     </div>
     <div class="dest-card dp">
       <div class="dest-tag">📈 Melhor mês</div>
-      <div class="dest-name">Abril 2026</div>
-      <div class="dest-val">R$ 243.689</div>
-      <div class="dest-desc">Melhor mês · 35 vendas</div>
+      <div class="dest-name" id="heroMelhorMes">Maio 2026</div>
+      <div class="dest-val" id="heroMelhorVal">R$ 243.689</div>
+      <div class="dest-desc" id="heroMelhorDesc">35 vendas · maior faturamento do ano</div>
     </div>
     <div class="dest-card dt">
       <div class="dest-tag">🏢 Setor líder</div>
-      <div class="dest-name">Serviços</div>
-      <div class="dest-val">R$ 694.845 · 61%</div>
-      <div class="dest-desc">75 contratos · setor dominante</div>
+      <div class="dest-name" id="dTopSetorNome">Setor Público</div>
+      <div class="dest-val" id="dTopSetorVal">R$ 694.845 · 61%</div>
+      <div class="dest-desc" id="dTopSetorDesc">ALEMA, Prefeituras, DSEI, CLA e outros</div>
     </div>
   </div>
 
-
-  <!-- STATUS BAR -->
-  <div id="statusBar" style="background:#F7F6F3;border:1px solid #EEECE8;border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:12px;color:#5F5E5A;font-family:'Sora',sans-serif;margin-bottom:1.5rem">
-    <span id="statusDot" style="width:8px;height:8px;border-radius:50%;background:#3B6D11;flex-shrink:0;display:inline-block"></span>
-    <span id="statusText">Dados Jan–Mai 2026 carregados · Clique "Atualizar" para buscar novos dados da planilha</span>
+  <!-- FATURAMENTO MENSAL -->
+  <div class="slabel">Faturamento mensal 2026</div>
+  <div class="card row-full" style="margin-bottom:1.5rem">
+    <div class="card-title"><span class="dot" style="background:var(--brand)"></span>Mês × Faturamento</div>
+    <div class="chart-wrap" style="height:260px"><canvas id="cMesFat" role="img" aria-label="Faturamento por mês em 2026">Faturamento mensal 2026</canvas></div>
   </div>
+
+  <!-- RECOMENDAÇÕES / O QUE MUDAR PARA FATURAR MAIS -->
+  <div class="slabel">O que mudar para faturar mais?</div>
+  <div class="card row-full" id="cardRecomendacoes" style="border-left:3px solid var(--brand)">
+    <div class="card-title"><span class="dot" style="background:var(--brand)"></span>Recomendações estratégicas (geradas a partir dos dados atuais)</div>
+    <ul class="rank-list" id="listaRecomendacoes"></ul>
+  </div>
+
+  <!-- VAREJO vs SETOR PÚBLICO -->
+  <div class="slabel">Varejo × Setor Público</div>
+  <div class="row2" style="margin-bottom:1.5rem">
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--blue)"></span>Composição do faturamento</div>
+      <div class="split-bar-wrap" id="splitBarHome"></div>
+      <div class="row2" style="margin-bottom:0;gap:10px">
+        <div style="background:var(--blue-light);border-radius:8px;padding:.875rem 1rem;border:1px solid #B5D4F4">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:#0C447C;margin-bottom:4px">Setor Público</div>
+          <div style="font-size:20px;font-weight:700;color:var(--blue)" id="splitPubVal">R$ 694.845</div>
+          <div style="font-size:11px;color:var(--gray-600);font-family:'DM Mono',monospace;margin-top:2px" id="splitPubPct">61% do total</div>
+          <div style="font-size:11px;color:var(--gray-600);margin-top:4px">ALEMA · Prefeituras · DSEI · CLA · outros</div>
+        </div>
+        <div style="background:var(--brand-light);border-radius:8px;padding:.875rem 1rem;border:1px solid #F5C4B3">
+          <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--brand-dark);margin-bottom:4px">Varejo</div>
+          <div style="font-size:20px;font-weight:700;color:var(--brand)" id="splitVarVal">R$ 444.609</div>
+          <div style="font-size:11px;color:var(--gray-600);font-family:'DM Mono',monospace;margin-top:2px" id="splitVarPct">39% do total</div>
+          <div style="font-size:11px;color:var(--gray-600);margin-top:4px">Serviços · Comércio · Indústria · Financeiro</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:var(--brand)"></span>Evolução mensal — Varejo × Público</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="cSplitMes" role="img" aria-label="Evolução mensal de Varejo vs Setor Público">Varejo vs Público Jan-Mai 2026</canvas></div>
+    </div>
+  </div>
+
   <div class="istrip">
-    <div class="iitem"><div class="ilabel">Maior ticket médio</div><div class="ival">R$ 5.821</div><div class="isub">Ana Maria Ferreira</div></div>
-    <div class="iitem"><div class="ilabel">Banner mais valioso</div><div class="ival">Banner Topo</div><div class="isub">R$ 49.403 acumulado</div></div>
-    <div class="iitem"><div class="ilabel">Agência parceira top</div><div class="ival">Quadrante Design</div><div class="isub">R$ 27.426 intermediados</div></div>
-    <div class="iitem"><div class="ilabel">Total de negociações</div><div class="ival">123</div><div class="isub">Jan–Mai 2026</div></div>
+    <div class="iitem"><div class="ilabel">Maior ticket médio</div><div class="ival" id="iTicketVal">R$ 5.821</div><div class="isub" id="iTicketSub">Ana Maria Ferreira</div></div>
+    <div class="iitem"><div class="ilabel">Mídia de maior ticket</div><div class="ival" id="iMidiaVal">Banner Topo</div><div class="isub" id="iMidiaSub">R$ 49.403 acumulado</div></div>
+    <div class="iitem"><div class="ilabel">Agência parceira top</div><div class="ival" id="iAgVal">Quadrante Design</div><div class="isub" id="iAgSub">R$ 27.426 intermediados</div></div>
+    <div class="iitem"><div class="ilabel">Total de negociações</div><div class="ival" id="iTotalVal">123</div><div class="isub" id="iTotalSub">Jan–Mai 2026</div></div>
   </div>
 
   <div class="row2">
@@ -323,7 +397,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
   </div>
 
   <div class="footer">
-    <span>Imirante.com · Dashboard Comercial 2026 · Jan–Mai</span>
+    <span id="footerRange">Imirante.com · Dashboard Comercial 2026 · Jan–Mai</span>
     <span class="footer-right" id="footerDate"></span>
   </div>
 </div>
@@ -376,7 +450,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
 <!-- ══════════════════ TAB: RANKING VENDEDORES ══════════════════ -->
 <div class="page" id="tab-vendedores">
-  <div class="slabel">Ranking geral Jan–Mai 2026</div>
+  <div class="slabel" id="slabelVendedores">Ranking geral Jan–Mai 2026</div>
   <div class="card row-full">
     <div class="card-title"><span class="dot" style="background:var(--brand)"></span>Faturamento total por vendedor</div>
     <div id="vBarFat"></div>
@@ -406,7 +480,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
 <!-- ══════════════════ TAB: RANKING SETORES ══════════════════ -->
 <div class="page" id="tab-setores">
-  <div class="slabel">Ranking por setor Jan–Mai 2026</div>
+  <div class="slabel" id="slabelSetores">Ranking por setor Jan–Mai 2026</div>
   <div class="row2">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--brand)"></span>Faturamento por setor</div>
@@ -433,7 +507,7 @@ body{font-family:'Sora',sans-serif;background:var(--page);color:var(--ink);min-h
 
 <!-- ══════════════════ TAB: RANKING POSICIONAMENTOS ══════════════════ -->
 <div class="page" id="tab-produtos">
-  <div class="slabel">Ranking de posicionamentos e produtos Jan–Mai 2026</div>
+  <div class="slabel" id="slabelProdutos">Ranking de mídias e posicionamentos Jan–Mai 2026</div>
   <div class="row2">
     <div class="card">
       <div class="card-title"><span class="dot" style="background:var(--green)"></span>Mais vendidos por quantidade</div>
@@ -551,8 +625,11 @@ const D = {
 const COLORS=['#D85A30','#185FA5','#3B6D11','#BA7517','#534AB7','#993C1D','#0F6E56','#C0392B'];
 // ✏️ CORES DOS SETORES (mesma ordem que setorValor nos dados)
 const SETOR_COLORS=['#D85A30','#185FA5','#3B6D11','#BA7517','#534AB7'];
-const MONTHS=['Jan','Fev','Mar','Abr','Mai'];
-const TOTAL=1139454.53;
+// Estes dois viram "let" pois são recalculados automaticamente ao clicar em "Atualizar"
+// (quando a planilha tiver mais meses que Jan–Mai, tudo se ajusta sozinho)
+let MONTHS=['Jan','Fev','Mar','Abr','Mai'];
+let TOTAL=1139454.53;
+const MONTH_FULL={Jan:'Janeiro',Fev:'Fevereiro',Mar:'Março',Abr:'Abril',Mai:'Maio',Jun:'Junho',Jul:'Julho',Ago:'Agosto',Set:'Setembro',Out:'Outubro',Nov:'Novembro',Dez:'Dezembro'};
 
 // ══════════════════ HELPERS ══════════════════
 function fR(v){return'R$\u00a0'+v.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0})}
@@ -594,6 +671,7 @@ function mkChart(id,type,labels,datasets,opts){
 
 // ══════════════════ HOME ══════════════════
 function buildHome(){
+  buildDestaques();
   renderBars('hBarFat',D.fatVend,i=>COLORS[i],fR);
   renderBars('hBarCli',D.cliVend,i=>['#185FA5','#378ADD','#85B7EB','#B5D4F4','#E6F1FB'][Math.min(i,4)],v=>v+' cl.');
 
@@ -607,14 +685,244 @@ function buildHome(){
   }
 
   mkChart('cMes','line',MONTHS,[{label:'2026',data:D.mesValor.map(m=>m[1]),borderColor:'#D85A30',backgroundColor:'rgba(216,90,48,.1)',pointBackgroundColor:'#D85A30',pointRadius:5,borderWidth:2.5,fill:true,tension:.4}]);
+  mkChart('cMesFat','bar',MONTHS,[{label:'Faturamento',data:D.mesValor.map(m=>m[1]),backgroundColor:'rgba(216,90,48,.75)',hoverBackgroundColor:'#D85A30',borderRadius:6,borderSkipped:false}],{legend:false,tt:{label:ctx=>'\u00a0'+fR(ctx.raw)}});
 
   const setorE=Object.entries(D.setorValor);
   const totS=setorE.reduce((a,b)=>a+b[1],0);
   const legS=document.getElementById('legSetor');
   if(legS) legS.innerHTML=setorE.map((e,i)=>`<span class="leg-item"><span class="leg-dot" style="background:${SETOR_COLORS[i]}"></span>${e[0]} ${(e[1]/totS*100).toFixed(0)}%</span>`).join('');
-  mkChart('cSetor','doughnut',setorE.map(e=>e[0]),[{data:setorE.map(e=>e[1]),backgroundColor:SETOR_COLORS,borderWidth:3,borderColor:'#fff',hoverOffset:6}],{noScale:true,tt:{label:ctx=>`\u00a0${ctx.label}: ${fR(ctx.raw)} (${(ctx.raw/totS*100).toFixed(0)}%)`}});
+  // ── SPLIT BAR VAREJO vs PÚBLICO ──
+  (function(){
+    const pub = D.setorValor['Públicos']||0;
+    const total = Object.values(D.setorValor).reduce((a,b)=>a+b,0);
+    const var_ = total - pub;
+    const pubPct = Math.round(pub/total*100);
+    const varPct = 100 - pubPct;
+    const el = document.getElementById('splitBarHome');
+    if(el) el.innerHTML = `
+      <div class="split-header">
+        <span class="split-label">Público ${pubPct}% · Varejo ${varPct}%</span>
+        <span class="split-pct" style="color:var(--gray-400)">${fR(total)} total</span>
+      </div>
+      <div class="split-track">
+        <div class="split-pub" style="width:${pubPct}%"><span class="split-track-label">Público ${pubPct}%</span></div>
+        <div class="split-var" style="width:${varPct}%"><span class="split-track-label">Varejo ${varPct}%</span></div>
+      </div>`;
+    const sv = document.getElementById('splitPubVal');
+    const sp = document.getElementById('splitPubPct');
+    const vv = document.getElementById('splitVarVal');
+    const vp = document.getElementById('splitVarPct');
+    if(sv) sv.textContent = fR(pub);
+    if(sp) sp.textContent = pubPct+'% do total';
+    if(vv) vv.textContent = fR(var_);
+    if(vp) vp.textContent = varPct+'% do total';
+  })();
+
+  // ── SPLIT LINE CHART ──
+  const pubMes = (D.setorMes['Públicos']||[0,0,0,0,0]);
+  const varMes = D.mesValor.map((m,i)=>Math.round((m[1]-(pubMes[i]||0))*100)/100);
+  mkChart('cSplitMes','line',MONTHS,[
+    {label:'Setor Público',data:pubMes,borderColor:'#185FA5',backgroundColor:'rgba(24,95,165,.12)',pointBackgroundColor:'#185FA5',borderWidth:2.5,fill:true,tension:.4,pointRadius:4},
+    {label:'Varejo',data:varMes,borderColor:'#D85A30',backgroundColor:'rgba(216,90,48,.08)',pointBackgroundColor:'#D85A30',borderWidth:2.5,fill:true,tension:.4,pointRadius:4}
+  ],{legend:true});
+
+  // ── UPDATE MELHOR MÊS DESTAQUE ──
+  (function(){
+    const best = D.mesValor.reduce((a,b)=>b[1]>a[1]?b:a,D.mesValor[0]);
+    const bEl = document.getElementById('heroMelhorMes');
+    const bVl = document.getElementById('heroMelhorVal');
+    const bDs = document.getElementById('heroMelhorDesc');
+    if(bEl) bEl.textContent = best[0]+' 2026';
+    if(bVl) bVl.textContent = fR(Math.round(best[1]));
+    const bestData = D.monthly[best[0]];
+    if(bDs&&bestData) bDs.textContent = bestData.vendas+' vendas · maior faturamento do ano';
+  })();
+
+  mkChart('cSetor','doughnut'
+,setorE.map(e=>e[0]),[{data:setorE.map(e=>e[1]),backgroundColor:SETOR_COLORS,borderWidth:3,borderColor:'#fff',hoverOffset:6}],{noScale:true,tt:{label:ctx=>`\u00a0${ctx.label}: ${fR(ctx.raw)} (${(ctx.raw/totS*100).toFixed(0)}%)`}});
 
   document.getElementById('footerDate').textContent='Gerado em '+new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  const fRange=document.getElementById('footerRange');
+  if(fRange) fRange.textContent='Imirante.com · Dashboard Comercial 2026 · '+MONTHS[0]+'–'+MONTHS[MONTHS.length-1];
+}
+
+// ══════════════════ DESTAQUES + RECOMENDAÇÕES (dinâmico) ══════════════════
+function buildDestaques(){
+  const setT=(id,txt)=>{const e=document.getElementById(id); if(e) e.textContent=txt;};
+
+  // Maior faturamento (vendedor)
+  const vendEnt=Object.entries(D.fatVend);
+  if(vendEnt.length){
+    const [vNome,vVal]=vendEnt[0];
+    setT('dTopVendNome',vNome);
+    setT('dTopVendVal',fR(vVal));
+    setT('dTopVendDesc','ticket médio '+fR(D.ticketVend[vNome]||0)+' · '+(D.vendasVend[vNome]||0)+' contratos');
+  }
+
+  // Maior carteira (clientes únicos)
+  const cliEnt=Object.entries(D.cliVend).sort((a,b)=>b[1]-a[1]);
+  if(cliEnt.length){
+    const [cNome,cVal]=cliEnt[0];
+    setT('dTopCliNome',cNome);
+    setT('dTopCliVal',cVal+' clientes únicos');
+    setT('dTopCliDesc',(D.vendasVend[cNome]||0)+' vendas · '+fR(D.fatVend[cNome]||0)+' acumulado');
+  }
+
+  // Mídia mais vendida por quantidade
+  const prodQEnt=Object.entries(D.prodQtde);
+  if(prodQEnt.length){
+    const [pNome,pQtde]=prodQEnt[0];
+    setT('dTopQtdeNome',pNome);
+    setT('dTopQtdeVal',pQtde+' vendas · '+fR(D.prodValor[pNome]||0));
+    setT('dTopQtdeDesc','mídia de maior recorrência');
+  }
+
+  // Mídia mais vendida por faturamento
+  const prodVEnt=Object.entries(D.prodValor);
+  if(prodVEnt.length){
+    const [pNome,pVal]=prodVEnt[0];
+    setT('dTopValNome',pNome);
+    setT('dTopValVal',fR(pVal));
+    setT('dTopValDesc',(D.prodQtde[pNome]||0)+' contratos · ticket '+fR(D.prodTicket[pNome]||0));
+  }
+
+  // Setor líder
+  const setorEnt=Object.entries(D.setorValor);
+  const totSetor=setorEnt.reduce((a,b)=>a+b[1],0);
+  if(setorEnt.length){
+    const [sNome,sVal]=setorEnt[0];
+    setT('dTopSetorNome',sNome);
+    setT('dTopSetorVal',fR(sVal)+' · '+Math.round(sVal/totSetor*100)+'%');
+    setT('dTopSetorDesc','maior participação no faturamento total');
+  }
+
+  // ── INSIGHT STRIP ──
+  const ticketEnt=Object.entries(D.ticketVend).sort((a,b)=>b[1]-a[1]);
+  if(ticketEnt.length){
+    setT('iTicketVal',fR(ticketEnt[0][1]));
+    setT('iTicketSub',ticketEnt[0][0]);
+  }
+  const prodTicketEnt=Object.entries(D.prodTicket||{}).sort((a,b)=>b[1]-a[1]);
+  if(prodTicketEnt.length){
+    setT('iMidiaVal',prodTicketEnt[0][0]);
+    setT('iMidiaSub',fR(D.prodValor[prodTicketEnt[0][0]]||0)+' acumulado');
+  }
+  const agEnt=Object.entries(D.agValor||{}).sort((a,b)=>b[1]-a[1]);
+  if(agEnt.length){
+    setT('iAgVal',agEnt[0][0]);
+    setT('iAgSub',fR(agEnt[0][1])+' intermediados');
+  } else {
+    setT('iAgVal','—');
+    setT('iAgSub','sem dados de agência');
+  }
+  const totalNegociacoes=D.mesVendas.reduce((a,b)=>a+b[1],0);
+  setT('iTotalVal',totalNegociacoes);
+  setT('iTotalSub',MONTHS[0]+'–'+MONTHS[MONTHS.length-1]+' 2026');
+
+  // ── HERO KPIs ──
+  if(D.mesValor.length){
+    const acum=D.mesValor.reduce((a,b)=>a+b[1],0);
+    setT('hkAcumVal',fRk(acum));
+    setT('hkAcumLabel','Fat. Acumulado 2026');
+    setT('hkAcumSub',MONTHS[0]+'–'+MONTHS[MONTHS.length-1]+' 2026');
+
+    const first=D.mesValor[0][1], last=D.mesValor[D.mesValor.length-1][1];
+    const cresc=first>0?((last-first)/first*100):0;
+    const best=D.mesValor.reduce((a,b)=>b[1]>a[1]?b:a,D.mesValor[0]);
+    setT('hkCrescLabel','Crescimento '+MONTHS[0]+'→'+MONTHS[MONTHS.length-1]);
+    setT('hkCrescVal',(cresc>=0?'+':'')+cresc.toFixed(0)+'%');
+    setT('hkCrescSub','melhor mês: '+best[0]);
+
+    const lastMonth=MONTHS[MONTHS.length-1];
+    const lastTicket=D.mesTicket[D.mesTicket.length-1][1];
+    const firstTicket=D.mesTicket[0][1];
+    setT('hkTicketLabel','Ticket Médio '+lastMonth);
+    setT('hkTicketVal',fR(lastTicket));
+    setT('hkTicketSub','vs '+fR(firstTicket)+' em '+MONTHS[0]);
+
+    const cliUnicos=D.mesClientes.length ? Math.max(...D.mesClientes.map(m=>m[1])) : 0;
+    setT('hkCliVal',cliUnicos||'—');
+    setT('hkCliSub','clientes únicos (pico mensal)');
+  }
+
+  gerarRecomendacoes();
+}
+
+function gerarRecomendacoes(){
+  const el=document.getElementById('listaRecomendacoes');
+  if(!el) return;
+  const recs=[];
+
+  // Usa o TOTAL canônico (soma do faturamento mensal real) como base — é mais confiável
+  // do que somar D.fatVend, que pode não cobrir 100% das linhas em bases de dados legadas.
+  const totalFat=TOTAL||Object.values(D.fatVend).reduce((a,b)=>a+b,0)||1;
+  const vendEnt=Object.entries(D.fatVend);
+  if(vendEnt.length){
+    const [topVend,topVal]=vendEnt[0];
+    const share=Math.min(100,topVal/totalFat*100);
+    if(share>35){
+      recs.push(`⚠️ <strong>${sN(topVend)}</strong> concentra ${share.toFixed(0)}% do faturamento — risco de dependência. Vale replicar sua abordagem com o restante do time e diversificar a carteira.`);
+    }
+  }
+
+  const prodVEnt=Object.entries(D.prodValor);
+  if(prodVEnt.length){
+    const [topProd,topProdVal]=prodVEnt[0];
+    const shareP=Math.min(100,topProdVal/totalFat*100);
+    recs.push(`🎬 <strong>${topProd}</strong> é a mídia que mais fatura (${shareP.toFixed(0)}% do total, ${fR(topProdVal)}). Priorizar esse formato em novas propostas tende a acelerar o faturamento.`);
+  }
+
+  // Mídias com ticket alto mas pouco vendidas = oportunidade de upsell
+  const prodTicketEnt=Object.entries(D.prodTicket||{}).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]);
+  if(prodTicketEnt.length){
+    const [ticProd,ticVal]=prodTicketEnt[0];
+    const qtdeTic=D.prodQtde[ticProd]||0;
+    if(qtdeTic<=Math.max(3,Math.round(Object.values(D.prodQtde).reduce((a,b)=>a+b,0)/Object.keys(D.prodQtde).length))){
+      recs.push(`💡 <strong>${ticProd}</strong> tem o maior ticket médio (${fR(ticVal)}) mas só ${qtdeTic} vendas — é uma mídia premium pouco explorada. Oferecer mais esse formato pode elevar o ticket médio geral sem aumentar o volume de vendas.`);
+    }
+  }
+
+  // Setor com menor ticket médio / maior volume mas baixo valor
+  const setorTicket=Object.keys(D.setorValor).map(s=>({s,ticket:D.setorVendas[s]?D.setorValor[s]/D.setorVendas[s]:0,vendas:D.setorVendas[s]||0,valor:D.setorValor[s]}));
+  setorTicket.sort((a,b)=>a.ticket-b.ticket);
+  if(setorTicket.length>1){
+    const pior=setorTicket[0];
+    if(pior.vendas>0){
+      recs.push(`📉 O setor <strong>${pior.s}</strong> tem o menor ticket médio (${fR(pior.ticket)}) apesar de ${pior.vendas} vendas. Revisar tabela de preços ou o mix de mídias oferecido a esse setor pode aumentar o faturamento sem precisar de mais clientes.`);
+    }
+  }
+
+  // Tendência dos últimos meses
+  if(D.mesValor.length>=2){
+    const ult=D.mesValor[D.mesValor.length-1];
+    const penult=D.mesValor[D.mesValor.length-2];
+    const varPct=penult[1]>0?((ult[1]-penult[1])/penult[1]*100):0;
+    if(varPct<0){
+      recs.push(`📉 O faturamento caiu ${Math.abs(varPct).toFixed(1)}% de ${penult[0]} para ${ult[0]}. Vale entender se foi sazonalidade, perda de clientes-chave ou queda de algum vendedor/mídia específica.`);
+    } else if(varPct>0){
+      recs.push(`📈 O faturamento cresceu ${varPct.toFixed(1)}% de ${penult[0]} para ${ult[0]}. Vale identificar o que impulsionou esse resultado (vendedor, mídia ou setor) para repetir a estratégia.`);
+    }
+  }
+
+  // Cross-sell: vendas com mais de uma mídia no mesmo contrato
+  if(typeof D.combosMidia==='number'){
+    const totalVendasN=D.mesVendas.reduce((a,b)=>a+b[1],0)||1;
+    const comboPct=D.combosMidia/totalVendasN*100;
+    if(D.combosMidia>0 && comboPct<25){
+      recs.push(`🧩 Só ${comboPct.toFixed(0)}% dos contratos combinam mais de uma mídia (PRODUTO 1 + PRODUTO 2). Oferecer pacotes combinados na negociação é uma forma direta de aumentar o ticket médio por cliente.`);
+    }
+  }
+
+  // Recorrência de clientes
+  if(Object.keys(D.cliVend).length>0){
+    recs.push(`🔁 Ações de recorrência (renovação automática, pacotes trimestrais) sobre a base de clientes atual tendem a elevar o faturamento sem depender só de novos clientes.`);
+  }
+
+  if(recs.length===0){
+    recs.push('Clique em "Atualizar" para carregar os dados mais recentes da planilha e gerar recomendações automáticas.');
+  }
+
+  el.innerHTML=recs.map(r=>`<li class="rank-item" style="align-items:flex-start"><span class="rname" style="line-height:1.5">${r}</span></li>`).join('');
 }
 
 // ══════════════════ MENSAL ══════════════════
@@ -626,8 +934,70 @@ function buildMonth(m){
   const setorEntries=Object.entries(data.setor).sort((a,b)=>b[1]-a[1]);
   const prodEntries=Object.entries(data.prod).sort((a,b)=>b[1]-a[1]);
 
+  // Mês anterior para comparação
+  const mIdx = MONTHS.indexOf(m);
+  const prevM = mIdx>0 ? MONTHS[mIdx-1] : null;
+  const prevData = prevM ? D.monthly[prevM] : null;
+  function chk(cur,prev){
+    if(!prev||prev===0) return '<span class="mes-comp-delta delta-chip-na">—</span>';
+    const d=((cur-prev)/prev*100);
+    const cls=d>=0?'delta-chip-up':'delta-chip-down';
+    return '<span class="mes-comp-delta '+cls+'">'+(d>=0?'▲':'▼')+' '+Math.abs(d).toFixed(1)+'%</span>';
+  }
+
+  // Split público vs varejo do mês
+  const pub = data.setor['Públicos']||0;
+  const var_ = data.fat - pub;
+  const pubPct = Math.round(pub/data.fat*100);
+  const varPct = 100-pubPct;
+  const prevPub = prevData?(prevData.setor['Públicos']||0):null;
+  const prevVar = prevData?(prevData.fat-(prevData.setor['Públicos']||0)):null;
+
   cont.innerHTML=`
-  <div class="kpi-grid">
+  <!-- KPIs com comparação -->
+  <div class="mes-comp-grid">
+    <div class="mes-comp-kpi" style="border-top:3px solid var(--brand)">
+      <div class="mes-comp-label">Faturamento</div>
+      <div class="mes-comp-val">${fR(data.fat)}</div>
+      ${chk(data.fat, prevData&&prevData.fat)}
+      ${prevData?'<div class="mes-comp-prev">'+prevM+': '+fR(prevData.fat)+'</div>':''}
+    </div>
+    <div class="mes-comp-kpi" style="border-top:3px solid var(--blue)">
+      <div class="mes-comp-label">Vendas</div>
+      <div class="mes-comp-val">${data.vendas}</div>
+      ${chk(data.vendas, prevData&&prevData.vendas)}
+      ${prevData?'<div class="mes-comp-prev">'+prevM+': '+prevData.vendas+' vendas</div>':''}
+    </div>
+    <div class="mes-comp-kpi" style="border-top:3px solid var(--green)">
+      <div class="mes-comp-label">Clientes únicos</div>
+      <div class="mes-comp-val">${data.cli}</div>
+      ${chk(data.cli, prevData&&prevData.cli)}
+      ${prevData?'<div class="mes-comp-prev">'+prevM+': '+prevData.cli+' clientes</div>':''}
+    </div>
+    <div class="mes-comp-kpi" style="border-top:3px solid var(--amber)">
+      <div class="mes-comp-label">Ticket Médio</div>
+      <div class="mes-comp-val">${fR(data.ticket)}</div>
+      ${chk(data.ticket, prevData&&prevData.ticket)}
+      ${prevData?'<div class="mes-comp-prev">'+prevM+': '+fR(prevData.ticket)+'</div>':''}
+    </div>
+  </div>
+
+  <!-- VAREJO vs PÚBLICO do mês -->
+  <div class="mes-setor-split">
+    <div class="setor-big-card pub">
+      <div class="setor-big-tag">🏛 Setor Público</div>
+      <div class="setor-big-val">${fR(pub)}</div>
+      <div class="setor-big-sub">${pubPct}% do mês</div>
+      ${prevPub!==null?'<div class="setor-big-delta" style="color:'+(pub>=prevPub?'var(--green)':'var(--brand)')+'">vs '+prevM+': '+fR(prevPub)+' ('+(pub>=prevPub?'▲':'▼')+Math.abs(((pub-prevPub)/prevPub)*100).toFixed(1)+'%)</div>':'<div class="setor-big-delta" style="color:var(--gray-400)">primeiro mês</div>'}
+    </div>
+    <div class="setor-big-card var">
+      <div class="setor-big-tag">🏪 Varejo</div>
+      <div class="setor-big-val">${fR(var_)}</div>
+      <div class="setor-big-sub">${varPct}% do mês · Serv. + Com. + Ind. + Fin.</div>
+      ${prevVar!==null?'<div class="setor-big-delta" style="color:'+(var_>=prevVar?'var(--green)':'var(--brand)')+'">vs '+prevM+': '+fR(prevVar)+' ('+(var_>=prevVar?'▲':'▼')+Math.abs(((var_-prevVar)/prevVar)*100).toFixed(1)+'%)</div>':'<div class="setor-big-delta" style="color:var(--gray-400)">primeiro mês</div>'}
+    </div>
+  </div>
+
     <div class="kpi kpi-brand"><div class="kpi-label">Faturamento</div><div class="kpi-val">${fR(data.fat)}</div><div class="kpi-sub">${m} 2026</div></div>
     <div class="kpi kpi-blue"><div class="kpi-label">Vendas</div><div class="kpi-val">${data.vendas}</div><div class="kpi-sub">negociações</div></div>
     <div class="kpi kpi-green"><div class="kpi-label">Clientes únicos</div><div class="kpi-val">${data.cli}</div><div class="kpi-sub">clientes ativos</div></div>
@@ -687,14 +1057,15 @@ function buildComparativo(){
   const body=document.getElementById('compBody');
   if(body) body.innerHTML=MONTHS.map((m,i)=>{
     const v26=D.mesValor[i][1];
-    const v25=D.mes2025[i][1];
-    const d=delta(v25,v26);
+    const est25=D.mes2025[i];
+    const v25=est25?est25[1]:null;
+    const d=v25!=null?delta(v25,v26):null;
     return`<tr>
       <td><strong>${m} 2026</strong></td>
-      <td style="color:var(--gray-400)">${fR(v25)}</td>
+      <td style="color:var(--gray-400)">${v25!=null?fR(v25):'—'}</td>
       <td>${fR(v26)}</td>
-      <td class="${d.cls}">${fR(v26-v25)}</td>
-      <td class="${d.cls}">${d.str}</td>
+      <td class="${d?d.cls:'delta-na'}">${v25!=null?fR(v26-v25):'—'}</td>
+      <td class="${d?d.cls:'delta-na'}">${d?d.str:'—'}</td>
       <td>${D.mesVendas[i][1]}</td>
       <td>${D.mesClientes[i][1]}</td>
       <td>${fR(D.mesTicket[i][1])}</td></tr>`;
@@ -703,19 +1074,21 @@ function buildComparativo(){
   const tcBody=document.getElementById('ticketCompBody');
   if(tcBody) tcBody.innerHTML=MONTHS.map((m,i)=>{
     const t26=D.mesTicket[i][1];
-    const t25=D.ticket2025[i][1];
-    const d=delta(t25,t26);
-    return`<tr><td>${m}</td><td style="color:var(--gray-400)">${fR(t25)}</td><td>${fR(t26)}</td><td class="${d.cls}">${d.str}</td></tr>`;
+    const est25=D.ticket2025[i];
+    const t25=est25?est25[1]:null;
+    const d=t25!=null?delta(t25,t26):null;
+    return`<tr><td>${m}</td><td style="color:var(--gray-400)">${t25!=null?fR(t25):'—'}</td><td>${fR(t26)}</td><td class="${d?d.cls:'delta-na'}">${d?d.str:'—'}</td></tr>`;
   }).join('');
 
   mkChart('cComp','bar',MONTHS,[
-    {label:'2025 (est.)',data:D.mes2025.map(m=>m[1]),backgroundColor:'rgba(136,135,128,.3)',borderColor:'rgba(136,135,128,.6)',borderWidth:1},
+    {label:'2025 (est.)',data:MONTHS.map((m,i)=>D.mes2025[i]?D.mes2025[i][1]:null),backgroundColor:'rgba(136,135,128,.3)',borderColor:'rgba(136,135,128,.6)',borderWidth:1},
     {label:'2026',data:D.mesValor.map(m=>m[1]),backgroundColor:'rgba(216,90,48,.75)',borderColor:'#D85A30',borderWidth:1}
   ],{legend:true});
 }
 
 // ══════════════════ VENDEDORES ══════════════════
 function buildVendedores(){
+  const lbl=document.getElementById('slabelVendedores'); if(lbl) lbl.textContent='Ranking geral '+MONTHS[0]+'–'+MONTHS[MONTHS.length-1]+' 2026';
   renderBars('vBarFat',D.fatVend,i=>COLORS[i],fR,140);
   renderBars('vBarCli',D.cliVend,i=>['#185FA5','#378ADD','#85B7EB','#B5D4F4','#E6F1FB'][Math.min(i,4)],v=>v+' cl.',140);
   renderBars('vBarTicket',D.ticketVend,i=>['#BA7517','#C8831E','#D69128','#E4A43A','#EEB554'][Math.min(i,4)],fR,140);
@@ -742,6 +1115,7 @@ function buildVendedores(){
 
 // ══════════════════ SETORES ══════════════════
 function buildSetores(){
+  const lbl=document.getElementById('slabelSetores'); if(lbl) lbl.textContent='Ranking por setor '+MONTHS[0]+'–'+MONTHS[MONTHS.length-1]+' 2026';
   renderBars('sBarFat',D.setorValor,i=>SETOR_COLORS[i],fR,140);
 
   const setorE=Object.entries(D.setorValor);
@@ -771,6 +1145,7 @@ function buildSetores(){
 
 // ══════════════════ PRODUTOS ══════════════════
 function buildProdutos(){
+  const lbl=document.getElementById('slabelProdutos'); if(lbl) lbl.textContent='Ranking de mídias e posicionamentos '+MONTHS[0]+'–'+MONTHS[MONTHS.length-1]+' 2026';
   renderBars('pBarQtde',D.prodQtde,i=>COLORS[i%COLORS.length],v=>v+' vnd.',150);
   const sorted=Object.entries(D.prodValor).slice(0,10);
   renderBars('pBarVal',Object.fromEntries(sorted),i=>['#BA7517','#C8831E','#D69128','#E4A43A','#EEB554','#F5C763','#FAEEDA'][Math.min(i,6)],fR,150);
@@ -792,7 +1167,7 @@ function buildProdutos(){
 function buildTicket(){
   mkChart('cTicketMes','line',MONTHS,[{label:'Ticket 2026',data:D.mesTicket.map(m=>m[1]),borderColor:'#D85A30',backgroundColor:'rgba(216,90,48,.1)',pointBackgroundColor:'#D85A30',pointRadius:5,borderWidth:2.5,fill:true,tension:.4}]);
   mkChart('cTicketComp','bar',MONTHS,[
-    {label:'2025 (est.)',data:D.ticket2025.map(m=>m[1]),backgroundColor:'rgba(136,135,128,.3)',borderWidth:1},
+    {label:'2025 (est.)',data:MONTHS.map((m,i)=>D.ticket2025[i]?D.ticket2025[i][1]:null),backgroundColor:'rgba(136,135,128,.3)',borderWidth:1},
     {label:'2026',data:D.mesTicket.map(m=>m[1]),backgroundColor:'rgba(216,90,48,.7)',borderWidth:1}
   ],{legend:true,extra:{scales:{y:{ticks:{callback:v=>fR(v)}}}}});
 
@@ -804,9 +1179,9 @@ function buildTicket(){
   if(ttb){
     const sorted=Object.entries(D.ticketVend).sort((a,b)=>b[1]-a[1]);
     ttb.innerHTML=sorted.map(e=>{
-      const t25=D.ticketVend2025[e[0]]||0;
-      const d=delta(t25,e[1]);
-      return`<tr><td>${e[0]}</td><td style="color:var(--gray-400)">${fR(t25)}</td><td>${fR(e[1])}</td><td class="${d.cls}">${d.str}</td></tr>`;
+      const t25=(D.ticketVend2025||{})[e[0]]||0;
+      const d=t25>0?delta(t25,e[1]):null;
+      return`<tr><td>${e[0]}</td><td style="color:var(--gray-400)">${t25>0?fR(t25):'—'}</td><td>${fR(e[1])}</td><td class="${d?d.cls:'delta-na'}">${d?d.str:'—'}</td></tr>`;
     }).join('');
   }
 }
@@ -832,7 +1207,7 @@ function goTab(name,el){
 // ══════════════════ GOOGLE SHEETS INTEGRATION ══════════════════
 // Usa Google Visualization API com JSONP — sem CORS, funciona em qualquer host
 // ✏️ ID DA PLANILHA GOOGLE SHEETS — não alterar
-const SHEET_ID = '1klUHysMZyKT4MDX0oMSFROaSGYDQTejAW8STGalBQEA';
+const SHEET_ID = '1rSmUzRHsZdgNblcWbxBAnuM6CJwWXZteRkjTL9rJc9g';
 // ✏️ NOMES DAS ABAS DA PLANILHA (devem ser idênticos aos nomes das abas no Google Sheets)
 const MONTH_SHEETS = ['jan26','fev26','mar26','abr26','mai26','jun26','jul26','ago26','set26','out26','nov26','dez26'];
 const MONTH_LABELS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
@@ -844,13 +1219,108 @@ function setStatus(text, color){
   if(dot) dot.style.background = color || '#888780';
 }
 
+// Mostra as primeiras linhas cruas da planilha (todas as colunas) numa tabela
+// legível em tela cheia, para diagnosticar a estrutura real de cabeçalho.
+async function inspecionarEstrutura(){
+  const btn=document.getElementById('btnTestLink');
+  if(btn) btn.disabled=true;
+  try{
+    if(!APPS_SCRIPT_URL){ alert('Apps Script não configurado ainda.'); return; }
+    const raw = await fetch(APPS_SCRIPT_URL+'?sheet=jan26', {cache:'no-store'}).then(r=>r.json());
+    if(raw.error){ alert('Erro: '+raw.error); return; }
+    const allRows = [raw.headers, ...raw.rows].slice(0,6);
+    const maxCols = Math.max(...allRows.map(r=>r.length));
+
+    const overlay=document.createElement('div');
+    overlay.style.cssText='position:fixed;inset:0;background:rgba(20,19,17,.97);z-index:99999;overflow:auto;padding:20px;font-family:"DM Mono",monospace;font-size:11px;color:#fff';
+    let html='<button onclick="this.closest(\'div\').remove()" style="position:sticky;top:0;left:100%;padding:10px 16px;background:#D85A30;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:Sora,sans-serif;font-weight:600;margin-bottom:12px">Fechar ✕</button>';
+    html+='<h2 style="color:#fff;font-family:Sora,sans-serif;margin:0 0 12px">Estrutura bruta — aba jan26 (linhas 1 a '+allRows.length+', '+maxCols+' colunas)</h2>';
+    html+='<table style="border-collapse:collapse;width:max-content"><thead><tr><th style="border:1px solid #555;padding:5px 8px;background:#333;position:sticky;left:0">Linha</th>';
+    for(let c=0;c<maxCols;c++) html+='<th style="border:1px solid #555;padding:5px 8px;background:#333;white-space:nowrap">Col '+(c+1)+'</th>';
+    html+='</tr></thead><tbody>';
+    allRows.forEach((row,i)=>{
+      html+='<tr><td style="border:1px solid #555;padding:5px 8px;background:#2a2a28;font-weight:700;position:sticky;left:0">'+(i+1)+'</td>';
+      for(let c=0;c<maxCols;c++){
+        const v=row[c];
+        const vazio = v===undefined||v===''||v===null;
+        html+='<td style="border:1px solid #555;padding:5px 8px;white-space:nowrap;'+(vazio?'color:#666':'color:#fff')+'">'+(vazio?'—':String(v))+'</td>';
+      }
+      html+='</tr>';
+    });
+    html+='</tbody></table>';
+    overlay.innerHTML=html;
+    document.body.appendChild(overlay);
+  }catch(e){
+    alert('Erro ao inspecionar: '+(e.message||e));
+  }finally{
+    if(btn) btn.disabled=false;
+  }
+}
+async function testarLinkPlanilha(){
+  const btn=document.getElementById('btnTestLink');
+  if(btn) btn.disabled=true;
+  setStatus('Testando conexão com a aba jan26 (Apps Script, CSV e JSONP separadamente)…', '#BA7517');
+
+  let resAS='não configurado';
+  let debugBruto='';
+  if(APPS_SCRIPT_URL){
+    try{
+      const t0=performance.now();
+      const raw = await fetch(APPS_SCRIPT_URL+'?sheet=jan26', {cache:'no-store'}).then(r=>r.json());
+      const ms=Math.round(performance.now()-t0);
+      const gvizData = arrayToGvizLike(raw.headers, raw.rows);
+      const colNames = gvizData.table.cols.map(c=>c.label).join(' | ');
+      const processados = processGVizTable(gvizData, 'Jan');
+      resAS='✓ OK em '+ms+'ms · '+gvizData.table.rows.length+' linhas brutas · '+processados.length+' registros reconhecidos';
+      // Mostra as 3 primeiras linhas cruas (sem tratamento) para diagnosticar estrutura de cabeçalho
+      debugBruto='\n\nLinha 1 (headers): '+JSON.stringify(raw.headers)+
+        '\nLinha 2: '+JSON.stringify(raw.rows[0])+
+        '\nLinha 3: '+JSON.stringify(raw.rows[1]);
+      if(processados.length===0){
+        resAS+='\n⚠️ ATENÇÃO: os dados chegaram mas NENHUM registro foi reconhecido.';
+      }
+    }catch(e){ resAS='✗ '+(e.message||e); }
+  }
+
+  let resCSV='não configurado';
+  if(PUBLISHED_ID && MONTH_GIDS['jan26']){
+    try{
+      const t0=performance.now();
+      const gvizData = await fetchSheetCSV('jan26');
+      const ms=Math.round(performance.now()-t0);
+      resCSV='✓ OK em '+ms+'ms · '+gvizData.table.rows.length+' linhas';
+    }catch(e){ resCSV='✗ '+(e.message||e); }
+  }
+
+  let resJSONP;
+  try{
+    const t0=performance.now();
+    const gvizData = await fetchSheetJSONP('jan26');
+    const ms=Math.round(performance.now()-t0);
+    resJSONP='✓ OK em '+ms+'ms · '+gvizData.table.rows.length+' linhas';
+  }catch(e){ resJSONP='✗ '+(e.message||e); }
+
+  const ok = resAS.startsWith('✓') || resCSV.startsWith('✓') || resJSONP.startsWith('✓');
+  setStatus('Apps Script: '+resAS+' /// CSV: '+resCSV+' /// JSONP: '+resJSONP, ok?'#3B6D11':'#D85A30');
+  console.log('Diagnóstico completo jan26 — Apps Script:', resAS, '| CSV:', resCSV, '| JSONP:', resJSONP);
+  if(btn) btn.disabled=false;
+  alert('DIAGNÓSTICO DA PLANILHA (aba jan26)\n\nApps Script: '+resAS+debugBruto+'\n\nCSV publicado: '+resCSV+'\n\nJSONP (método antigo): '+resJSONP+'\n\nTire um print desta caixa e envie.');
+}
+
 function parseNum(s){
   if(!s||s===''||s==='null'||s===undefined)return 0;
-  const n=parseFloat(String(s).replace(/[^\d,.-]/g,'').replace(',','.'));
+  let str=String(s).trim().replace(/[^\d,.-]/g,'');
+  // Se tem vírgula, é formato brasileiro (ponto = separador de milhar, vírgula = decimal).
+  // Ex: "1.500,50" -> remove pontos -> "1500,50" -> troca vírgula por ponto -> 1500.50
+  // Sem vírgula, mantém como está (cobre números já vindos como float do JSONP, ex: "243688.75").
+  if(str.includes(',')) str=str.replace(/\./g,'').replace(',', '.');
+  const n=parseFloat(str);
   return isNaN(n)?0:n;
 }
 
 // JSONP: injeta <script> e aguarda callback — contorna CORS completamente
+// ⚠️ Método legado: a Google mudou o comportamento desse endpoint e, em vários
+// navegadores/redes, o callback nunca é chamado (timeout). Mantido como fallback.
 function fetchSheetJSONP(sheetName){
   return new Promise((resolve, reject)=>{
     const cbName = '__gvizCb_'+sheetName.replace(/\W/g,'_')+'_'+Date.now();
@@ -875,23 +1345,164 @@ function fetchSheetJSONP(sheetName){
   });
 }
 
+// ══════════════════ MÉTODO ROBUSTO: CSV PUBLICADO (fetch real) ══════════════════
+// ✏️ Preencha após fazer "Arquivo → Compartilhar → Publicar na Web" na planilha.
+// PUBLISHED_ID = o trecho que aparece depois de /d/e/ no link gerado
+//   (algo como "2PACX-1vT......"). Deixe '' enquanto não configurado.
+const PUBLISHED_ID = '2PACX-1vTNKLAPNEBXUSAcaZvVs8HSTiUhJPN4mYMU3TCuZC2oe7BmxM3osEwMMeBNhlXGX2hTIeXV29K3cIBn';
+// ✏️ Para cada aba, o número que aparece depois de "#gid=" na barra de
+//   endereço quando você clica na aba (com a planilha publicada). Deixe '' se
+//   ainda não souber — o dashboard cai automaticamente para o método antigo (JSONP).
+const MONTH_GIDS = {
+  jan26:'1129720447', fev26:'682546159', mar26:'1014257881', abr26:'399438656',
+  mai26:'2059534322', jun26:'1671907545', jul26:'230810116',
+  ago26:'', set26:'', out26:'', nov26:'', dez26:''
+};
+
+// Parser de CSV simples (lida com aspas, vírgulas e quebras de linha dentro de campos)
+function parseCSV(text){
+  const rows=[]; let row=[], field='', inQuotes=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQuotes){
+      if(c==='"'){ if(text[i+1]==='"'){ field+='"'; i++; } else inQuotes=false; }
+      else field+=c;
+    } else {
+      if(c==='"') inQuotes=true;
+      else if(c===','){ row.push(field); field=''; }
+      else if(c==='\r'){ /* ignora, \n trata a quebra */ }
+      else if(c==='\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+      else field+=c;
+    }
+  }
+  if(field.length||row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r=>r.length>1||r[0]!=='');
+}
+
+// Converte linhas de CSV para o mesmo formato que o gviz retorna,
+// assim reaproveitamos processGVizTable sem duplicar lógica de colunas.
+function csvToGvizLike(csvRows){
+  if(!csvRows.length) return {table:{cols:[],rows:[]}};
+  const headers=csvRows[0];
+  const cols=headers.map(h=>({label:h}));
+  const rows=csvRows.slice(1).filter(r=>r.some(v=>v!=='')).map(r=>({
+    c: headers.map((h,i)=>({v: r[i]!==undefined&&r[i]!==''?r[i]:null}))
+  }));
+  return {table:{cols,rows}};
+}
+
+// ══════════════════ MÉTODO MAIS ROBUSTO: GOOGLE APPS SCRIPT ══════════════════
+// ✏️ Preencha após publicar o Apps Script (ver instruções enviadas pelo Claude).
+// URL termina em "/exec". Deixe '' enquanto não configurado.
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxNoyUSZRXr6yE0kEA_Fnf3Y_f4ucX1_cBNuwYev9AlcJq94zj2n_IiDE-mjhjCdmN5pg/exec';
+
+function arrayToGvizLike(headers, rows){
+  const cols = (headers||[]).map(h=>({label:String(h==null?'':h)}));
+  const gvizRows = (rows||[])
+    .filter(r=>r.some(v=>v!==''&&v!==null&&v!==undefined))
+    .map(r=>({c: (headers||[]).map((h,i)=>({v: r[i]!==undefined&&r[i]!==''&&r[i]!==null ? r[i] : null}))}));
+  return {table:{cols, rows:gvizRows}};
+}
+
+async function fetchSheetAppsScript(sheetName){
+  if(!APPS_SCRIPT_URL) throw new Error('Apps Script não configurado');
+  const url = APPS_SCRIPT_URL + '?sheet=' + encodeURIComponent(sheetName);
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  const json = await res.json();
+  if(json.error){
+    const err = new Error(json.error);
+    err.notFound = true; // resposta definitiva: a aba não existe, não adianta tentar outros métodos
+    throw err;
+  }
+  return arrayToGvizLike(json.headers, json.rows);
+}
+
+async function fetchSheetCSV(sheetName){
+  const gid = MONTH_GIDS[sheetName];
+  if(!PUBLISHED_ID||!gid) throw new Error('CSV não configurado para '+sheetName);
+  const url = 'https://docs.google.com/spreadsheets/d/e/'+PUBLISHED_ID+'/pub?gid='+gid+'&single=true&output=csv';
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok) throw new Error('HTTP '+res.status+' ao buscar '+sheetName);
+  const text = await res.text();
+  return csvToGvizLike(parseCSV(text));
+}
+
+// Tenta CSV publicado primeiro (mais confiável); se não estiver configurado
+// ou falhar, cai para o método antigo via JSONP.
+let ultimoMetodoUsado='';
+let ultimoErroCSV='';
+let ultimoErroAppsScript='';
+async function fetchSheet(sheetName){
+  if(APPS_SCRIPT_URL){
+    try{
+      const data = await fetchSheetAppsScript(sheetName);
+      ultimoMetodoUsado='apps-script';
+      return data;
+    }catch(e){
+      if(e.notFound) throw e; // aba realmente não existe — não vale a pena tentar CSV/JSONP
+      ultimoErroAppsScript = e.message||String(e);
+      console.warn('Apps Script falhou para '+sheetName+', tentando CSV…', e);
+    }
+  }
+  if(PUBLISHED_ID && MONTH_GIDS[sheetName]){
+    try{
+      const data = await fetchSheetCSV(sheetName);
+      ultimoMetodoUsado='csv';
+      return data;
+    }catch(e){
+      ultimoErroCSV = e.message||String(e);
+      console.warn('CSV falhou para '+sheetName+', tentando JSONP…', e);
+    }
+  }
+  try{
+    const data = await fetchSheetJSONP(sheetName);
+    ultimoMetodoUsado='jsonp';
+    return data;
+  }catch(e){
+    // Junta os erros dos três métodos para diagnóstico completo
+    const partes=[];
+    if(ultimoErroAppsScript) partes.push('Apps Script: '+ultimoErroAppsScript);
+    if(ultimoErroCSV) partes.push('CSV: '+ultimoErroCSV);
+    partes.push('JSONP: '+(e.message||e));
+    throw new Error(partes.join(' | '));
+  }
+}
+
 function processGVizTable(gvizData, monthLabel){
   // gvizData.table.cols = [{label, type}]
   // gvizData.table.rows = [{c:[{v:value}]}]
   try{
     const table = gvizData.table;
     if(!table||!table.cols||!table.rows) return [];
-    const cols = table.cols.map(col=>col.label||col.id||'');
+    const norm=(s)=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toUpperCase();
+    const cols = table.cols.map(col=>norm(col.label||col.id||''));
     
-    // Find key column indices
-    const fc=(name)=>cols.findIndex(h=>h.trim()===name);
-    const colVend  = fc('VENDEDOR');
-    const colValor = fc('VALOR LÍQUIDO');
-    const colProd1 = fc('PRODUTO 1');
+    // Find key column indices — aceita variações de acento/caixa e nomes alternativos.
+    // IMPORTANTE: tenta cada candidato NA ORDEM em que foi passado (mais específico primeiro),
+    // varrendo todas as colunas para cada um, em vez de pegar a primeira coluna da esquerda
+    // que bater com QUALQUER candidato — essencial quando o mesmo nome genérico (ex: "VALOR")
+    // se repete várias vezes na planilha (uma por bloco de produto) além da coluna real desejada.
+    const fc=(...names)=>{
+      const wanted=names.map(norm);
+      for(const w of wanted){
+        const idx=cols.findIndex(h=>h===w);
+        if(idx>=0) return idx;
+      }
+      for(const w of wanted){
+        const idx=cols.findIndex(h=>h.includes(w));
+        if(idx>=0) return idx;
+      }
+      return -1;
+    };
+    const colVend  = fc('VENDEDOR','CONSULTOR');
+    const colValor = fc('VALOR LIQUIDO','VALOR LÍQUIDO','VALOR');
+    const colProd1 = fc('PRODUTO 1','MIDIA','MÍDIA','PRODUTO','POSICIONAMENTO');
+    const colProd2 = fc('PRODUTO 2','MIDIA 2','MÍDIA 2');
     const colSetor = fc('SETOR');
-    const colCodigo= fc('CÓDIGO');
-    const colNome  = fc('NOME FANTASIA');
-    const colAg    = fc('AGÊNCIA');
+    const colCodigo= fc('CODIGO','CÓDIGO');
+    const colNome  = fc('NOME FANTASIA','NOME DE FANTASIA','CLIENTE','RAZAO SOCIAL','RAZÃO SOCIAL');
+    const colAg    = fc('AGENCIA','AGÊNCIA');
     
     if(colValor<0) return [];
     
@@ -915,6 +1526,7 @@ function processGVizTable(gvizData, monthLabel){
         vendedor: vend,
         valor,
         produto:  colProd1>=0 ? (getV(row,colProd1)||'') : '',
+        produto2: colProd2>=0 ? (getV(row,colProd2)||'') : '',
         setor:    colSetor>=0 ? (getV(row,colSetor)||'') : '',
         codigo:   colCodigo>=0? (getV(row,colCodigo)||'') : '',
         nome:     String(nomeRaw).trim(),
@@ -994,6 +1606,8 @@ function rebuildDFromRows(allRows){
   });
 
   // Totals
+  const agValor={};
+  let combosMidia=0;
   allRows.forEach(r=>{
     if(!fatVend[r.vendedor])fatVend[r.vendedor]=0;
     fatVend[r.vendedor]+=r.valor;
@@ -1003,9 +1617,13 @@ function rebuildDFromRows(allRows){
       if(!prodQtde[r.produto])prodQtde[r.produto]=0; prodQtde[r.produto]++;
       if(!prodValor[r.produto])prodValor[r.produto]=0; prodValor[r.produto]+=r.valor;
     }
+    if(r.produto2){ combosMidia++; }
     if(r.setor){
       if(!setorValor[r.setor])setorValor[r.setor]=0; setorValor[r.setor]+=r.valor;
       if(!setorVendas[r.setor])setorVendas[r.setor]=0; setorVendas[r.setor]++;
+    }
+    if(r.agencia){
+      if(!agValor[r.agencia])agValor[r.agencia]=0; agValor[r.agencia]+=r.valor;
     }
   });
 
@@ -1037,10 +1655,27 @@ function rebuildDFromRows(allRows){
     setorClientes,
     mesValor,mesVendas,mesClientes,mesTicket,
     vendMes,setorMes,monthly,
+    agValor:sortObj(agValor),
+    combosMidia,
   });
 
-  // Update MONTHS global
+  // Atualiza MONTHS e TOTAL globais (usados em todos os gráficos e tabelas)
+  MONTHS = mesesComDados;
   window.MONTHS_LIVE = mesesComDados;
+  TOTAL = mesValor.reduce((a,b)=>a+b[1],0) || 1;
+  if(!MONTHS.includes(activeMonth)) activeMonth = MONTHS[MONTHS.length-1] || 'Jan';
+  renderMonthTabs();
+}
+
+// Reconstrói as abas de mês (Jan, Fev... Dez) de acordo com os meses que a planilha realmente tem
+function renderMonthTabs(){
+  const wrap=document.getElementById('monthTabs');
+  if(!wrap) return;
+  wrap.innerHTML = MONTHS.map(m=>{
+    const full = MONTH_FULL[m] || m;
+    const active = m===activeMonth ? ' active' : '';
+    return `<div class="month-tab${active}" onclick="goMonth('${m}',this)">${full}</div>`;
+  }).join('');
 }
 
 function rebuildAllCharts(){
@@ -1082,23 +1717,34 @@ async function refreshData(){
   try{
     const allRows=[];
     const loaded=[];
+    let primeiroErroReal='';
+    const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
+    const TAMANHO_LOTE=3; // meses buscados ao mesmo tempo — equilíbrio entre velocidade e limite do Apps Script
 
-    for(let i=0;i<MONTH_SHEETS.length;i++){
-      try{
-        setStatus('Carregando '+MONTH_LABELS[i]+'…', '#BA7517');
-        const gvizData = await fetchSheetJSONP(MONTH_SHEETS[i]);
-        const processed = processGVizTable(gvizData, MONTH_LABELS[i]);
-        if(processed.length>0){
-          allRows.push(...processed);
-          loaded.push(MONTH_LABELS[i]);
+    for(let inicio=0; inicio<MONTH_SHEETS.length; inicio+=TAMANHO_LOTE){
+      const lote = MONTH_SHEETS.slice(inicio, inicio+TAMANHO_LOTE);
+      const rotulos = MONTH_LABELS.slice(inicio, inicio+TAMANHO_LOTE);
+      setStatus('Carregando '+rotulos.join(', ')+'… ('+Math.min(inicio+TAMANHO_LOTE,MONTH_SHEETS.length)+'/'+MONTH_SHEETS.length+')', '#BA7517');
+      const resultados = await Promise.allSettled(lote.map(sheet=>fetchSheet(sheet)));
+      resultados.forEach((r,j)=>{
+        const mesLabel = rotulos[j], mesSheet = lote[j];
+        if(r.status==='fulfilled'){
+          const processed = processGVizTable(r.value, mesLabel);
+          if(processed.length>0){
+            allRows.push(...processed);
+            loaded.push(mesLabel);
+          }
+        } else {
+          const e = r.reason;
+          if(!primeiroErroReal && !(e&&e.notFound)) primeiroErroReal = mesSheet+': '+(e&&e.message||e);
+          console.log('Mês sem dados:', mesSheet, e&&e.message);
         }
-      }catch(e){
-        console.log('Mês sem dados:', MONTH_SHEETS[i], e.message);
-      }
+      });
+      if(inicio+TAMANHO_LOTE<MONTH_SHEETS.length) await sleep(200);
     }
 
     if(allRows.length===0){
-      throw new Error('Nenhum dado encontrado. Verifique se a planilha está compartilhada publicamente (qualquer pessoa com o link).');
+      throw new Error('Nenhum dado encontrado. '+(primeiroErroReal ? 'Erro real: '+primeiroErroReal : 'Causas mais comuns: (1) a planilha não está compartilhada como "Qualquer pessoa com o link"; (2) um bloqueador de anúncios/extensão está barrando requisições a docs.google.com.'));
     }
 
     rebuildDFromRows(allRows);
@@ -1111,8 +1757,8 @@ async function refreshData(){
       const heroSub   = document.querySelector('.hero-sub');
       const heroTag   = document.querySelector('.hero-tag');
       if(heroTag)   heroTag.textContent   = 'Mês atual · '+lastMes+' 2026';
-      if(heroTitle) heroTitle.textContent = 'R$ '+Math.round(lastData.fat).toLocaleString('pt-BR');
-      if(heroSub)   heroSub.textContent   = 'faturamento em '+lastMes+' · '+lastData.vendas+' vendas · '+lastData.cli+' clientes únicos';
+      if(heroTitle){ heroTitle.textContent = 'R$ '+Math.round(lastData.fat).toLocaleString('pt-BR'); heroTitle.style.opacity=1; }
+      if(heroSub){ heroSub.textContent   = 'faturamento em '+lastMes+' · '+lastData.vendas+' vendas · '+lastData.cli+' clientes únicos'; heroSub.style.opacity=1; }
     }
 
     rebuildAllCharts();
@@ -1129,6 +1775,14 @@ async function refreshData(){
     setStatus('Erro ao atualizar: '+msg, '#D85A30');
     showToast('⚠ '+msg, 'err');
     if(lut) lut.textContent = 'Falha na atualização';
+    const heroTag=document.querySelector('.hero-tag');
+    const heroTitle=document.querySelector('.hero-title');
+    const heroSub=document.querySelector('.hero-sub');
+    if(heroTag && heroTag.textContent.includes('Carregando')){
+      heroTag.textContent='⚠ Falha ao carregar — clique em "Atualizar"';
+      if(heroTitle){ heroTitle.textContent='R$ —'; heroTitle.style.opacity=1; }
+      if(heroSub){ heroSub.textContent='não foi possível buscar os dados da planilha agora'; heroSub.style.opacity=1; }
+    }
     console.error('refreshData error:', err);
   }finally{
     btn.classList.remove('loading');
@@ -1152,8 +1806,12 @@ tabBuilt['home']=true;
   const lut = document.getElementById('lastUpdateTop');
   const stored = localStorage.getItem('imirante_last_update');
   if(stored && lut) lut.textContent = 'Atualizado: '+stored;
-  setStatus('Dados Jan–Mai 2026 · Clique "Atualizar" para buscar novos dados da planilha', '#888780');
+  setStatus('Base local: Jan–Mai 2026 · Buscando dados atualizados da planilha…', '#888780');
 })();
+// Busca os dados mais recentes automaticamente assim que a página termina de
+// carregar (pequeno atraso para evitar que o navegador trate como requisição
+// "automática" durante o parse inicial, o que alguns ambientes bloqueiam).
+setTimeout(refreshData, 300);
 </script>
 </body>
 </html>
