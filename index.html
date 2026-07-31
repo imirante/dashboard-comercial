@@ -1520,7 +1520,12 @@ function processGVizTable(gvizData, monthLabel){
       const valor = parseNum(String(valorRaw));
       if(valor<=0) continue;
       const vendRaw = getV(row, colVend);
-      const vend = (vendRaw&&String(vendRaw).trim()) ? String(vendRaw).trim() : '(Sem vendedor)';
+      const agRaw   = colAg>=0 ? getV(row, colAg) : null;
+      const vendTrim = (vendRaw&&String(vendRaw).trim()) ? String(vendRaw).trim() : '';
+      const agTrim   = (agRaw&&String(agRaw).trim()) ? String(agRaw).trim() : '';
+      // Prioriza VENDEDOR; se estiver vazio, usa a AGÊNCIA no lugar; se os dois
+      // estiverem vazios, cai no rótulo genérico.
+      const vend = vendTrim || agTrim || '(Sem vendedor)';
       data.push({
         mes:     monthLabel,
         vendedor: vend,
@@ -1530,7 +1535,7 @@ function processGVizTable(gvizData, monthLabel){
         setor:    colSetor>=0 ? (getV(row,colSetor)||'') : '',
         codigo:   colCodigo>=0? (getV(row,colCodigo)||'') : '',
         nome:     String(nomeRaw).trim(),
-        agencia:  colAg>=0   ? (getV(row,colAg)||'') : '',
+        agencia:  agTrim,
       });
     }
     return data;
